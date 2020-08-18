@@ -4,7 +4,46 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="./styles/reset.css" />
+    <link rel="stylesheet" href="./styles/style.css" />
     <title>My Mate</title>
   </head>
-  <body></body>
+  <body>
+    <header class="header">
+      <div class="header__info">
+        <div class="header__logo"></div>
+        <div class="header__title"></div>
+      </div>
+      <div class="header__clock"></div>
+      <!-- Mobile only -->
+      <div class="header__menu"></div>
+    </header>
+
+    <main class="main">
+      <aside class="side-bar">
+        <article class="profile">
+          <div class="profile-image"></div>
+          <div class="profile-user"></div>
+        </article>
+        <nav class="nav">
+          <ul class="nav__default-list">
+            <li class="nav__default-item"></li>
+          </ul>
+          <ul class="nav__custom-list">
+            <li class="nav__custom-item"></li>
+          </ul>
+        </nav>
+      </aside>
+
+      <article class="main__content">
+        <section class="content__info"></section>
+        <section class="content">
+          <ul class="content-list">
+            <li class="content-item"></li>
+          </ul>
+        </section>
+      </article>
+    </main>
+
+    <script src="js/clock.js"></script>
+  </body>
 </html>
