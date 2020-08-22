@@ -5,45 +5,105 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="./styles/reset.css" />
     <link rel="stylesheet" href="./styles/style.css" />
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.14.0/css/all.css"
+      integrity="sha384-HzLeBuhoNPvSl5KYnjx0BT+WB0QEEqLprO+NBkkk5gbc67FTaL7XIGa2w1L0Xbgc"
+      crossorigin="anonymous"
+    />
     <title>My Mate</title>
   </head>
   <body>
     <header class="header">
       <div class="header__info">
-        <div class="header__logo"></div>
-        <div class="header__title"></div>
+        <div class="header__logo">📑</div>
+        <div class="header__title">My Mate</div>
       </div>
       <div class="header__clock"></div>
       <!-- Mobile only -->
-      <div class="header__menu"></div>
+      <div class="header__menu">
+        <input class="header__menu-toggle" type="checkbox" id="hamburger" />
+        <label class="header__menu-icon" for="hamburger">
+          <span class="header__hamburger"></span>
+        </label>
+      </div>
     </header>
 
     <main class="main">
       <aside class="side-bar">
         <article class="profile">
-          <div class="profile-image"></div>
-          <div class="profile-user"></div>
+          <span class="profile-image">💪</span>
+          <span class="profile-user">DengKim</span>
         </article>
         <nav class="nav">
-          <ul class="nav__default-list">
-            <li class="nav__default-item"></li>
+          <ul class="nav__default-list list-wrap">
+            <li class="nav__default-item item-wrap">
+              <span class="item-name">Important</span>
+              <span class="item-count">1</span>
+            </li>
+            <li class="nav__default-item item-wrap">
+              <span class="item-name">Tasks</span>
+              <span class="item-count">1</span>
+            </li>
           </ul>
-          <ul class="nav__custom-list">
-            <li class="nav__custom-item"></li>
+          <ul class="nav__custom-list list-wrap">
+            <li class="nav__custom-item item-wrap">
+              <span class="item-name">Custom</span>
+              <span class="item-count">1</span>
+            </li>
+            <li class="nav__custom-item item-wrap">
+              <span class="item-name">Custom</span>
+              <span class="item-count">1</span>
+            </li>
+            <li class="nav__custom-item item-wrap">
+              <span class="item-name">Custom</span>
+              <span class="item-count">1</span>
+            </li>
           </ul>
+          <div class="new-list-button item-wrap">
+            <span class="new-list-button__logo">+ New list</span>
+            <span class="new-list-button__label"></span>
+          </div>
+          <!-- <form class="new-list-form" type="submit"></form> -->
         </nav>
       </aside>
 
-      <article class="main__content">
-        <section class="content__info"></section>
-        <section class="content">
+      <article class="content">
+        <section class="content-info content-box">
+          <span class="content-info-title info-item">
+            <div>List Title</div>
+            <div>Date</div>
+          </span>
+          <span class="content-info-button info-item">Button</span>
+        </section>
+        <section class="content-wrap content-box">
           <ul class="content-list">
-            <li class="content-item"></li>
+            <li class="content-item-wrap">
+              <span class="content-item checkbox">O</span>
+              <span class="content-item">할 일 목록 1</span>
+              <span class="content-item favorite">⭐</span>
+            </li>
+            <li class="content-item-wrap">
+              <span class="content-item checkbox">O</span>
+              <span class="content-item">할 일 목록 2</span>
+              <span class="content-item favorite">⭐</span>
+            </li>
+            <li class="content-item-wrap">
+              <span class="content-item checkbox">O</span>
+              <span class="content-item">할 일 목록 3</span>
+              <span class="content-item favorite">⭐</span>
+            </li>
+            <li class="content-item-wrap">
+              <span class="content-item checkbox">O</span>
+              <span class="content-item">할 일 목록 4</span>
+              <span class="content-item favorite">⭐</span>
+            </li>
           </ul>
         </section>
       </article>
     </main>
 
-    <script src="js/clock.js"></script>
+    <script src="js/header-clock.js"></script>
+    <script src="js/nav.js"></script>
   </body>
 </html>
