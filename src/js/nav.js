@@ -2,49 +2,52 @@ const menuBar = document.querySelector('#hamburger');
 const sideBar = document.querySelector('.side-bar');
 const newListBtn = document.querySelector('.new-list-button');
 
-function addList(e) {
+function appendList(e) {
   e.preventDefault();
-  const value = e.target.value;
-  const ul = document.querySelector('.nav__custom-list');
-  const li = document.createElement('li');
-  const itemName = document.createElement('span');
-  const itemCount = document.createElement('span');
+  const newListInput = document.querySelector('.new-list-input');
+  const value = newListInput.value.trim();
 
-  li.classList.add('nav__custom-item item-wrap');
-  itemName.classList.add('item-name');
-  itemName.innerHTML = value;
-  itemCount.classList.add('item-count');
+  if (value != false) {
+    const ul = document.querySelector('.nav__custom-list');
+    const li = document.createElement('li');
+    const itemName = document.createElement('span');
+    const itemCount = document.createElement('span');
+    li.classList.add('nav__custom-item', 'item-wrap');
+    itemName.classList.add('item-name');
+    itemName.innerHTML = value;
+    itemCount.classList.add('item-count');
 
-  li.appendChild(itemName);
-  li.appendChild(itemCount);
-  ul.appendChild(li);
+    li.append(itemName);
+    li.append(itemCount);
+    ul.append(li);
+  }
+
+  newListInput.value = '';
+  newListInput.blur();
 }
 
 function appearInputBox() {
-  const newListForm = document.querySelector('.new-list-form');
+  const newListWrap = document.querySelector('.new-list-wrap');
+  const newListForm = document.createElement('form');
   const newListInput = document.createElement('input');
 
+  newListForm.classList.add('new-list-form');
   newListInput.type = 'text';
   newListInput.classList.add('new-list-input');
-  newListForm.appendChild(newListInput);
+  newListForm.append(newListInput);
+  newListWrap.append(newListForm);
   newListInput.focus();
 
-  if (newListInput.value) {
-    newListForm.addEventListener('submit', addList);
-  }
+  newListForm.addEventListener('submit', appendList);
   newListInput.addEventListener('focusout', focusOutInput);
 }
 
 function focusOutInput() {
   const newListForm = document.querySelector('.new-list-form');
   const newListInput = document.querySelector('.new-list-input');
-  const nav = document.querySelector('.nav');
 
   if (!newListInput.value) {
-    newListInput.style.animation = '.3s disAppearInput';
-    setTimeout(() => {
-      newListForm.removeChild(newListInput);
-    }, 250);
+    removeInput(newListForm);
   }
 
   newListInput.blur();
@@ -54,8 +57,22 @@ function toggleNav() {
   if (menuBar.checked) {
     sideBar.classList.add('clicked');
   } else {
+    if (document.querySelector('.new-list-form')) {
+      const newListForm = document.querySelector('.new-list-form');
+      if (newListForm.hasChildNodes()) {
+        removeInput(newListForm);
+      }
+    }
     sideBar.classList.remove('clicked');
   }
+}
+
+function removeInput(form) {
+  const newListWrap = document.querySelector('.new-list-wrap');
+  form.firstChild.style.animation = 'disAppearInputBox .3s';
+  setTimeout(() => {
+    newListWrap.removeChild(form);
+  }, 250);
 }
 
 function init() {
