@@ -2,6 +2,7 @@
   box-sizing: border-box;
   list-style: none;
   text-decoration: none;
+  outline: none;
 }
 
 html,
@@ -104,9 +105,6 @@ body {
 
   /* Small Devices, Tablets : 768px ~ */
   @media only screen and (min-width: 768px) {
-    &__menu {
-      display: none;
-    }
   }
 
   /* Medium Devices, Desktops : 992px ~ */
@@ -127,6 +125,7 @@ body {
 
   /* Medium Devices, Desktops : 992px ~ */
   @media only screen and (min-width: 992px) {
+    display: flex;
   }
 }
 
@@ -162,7 +161,7 @@ body {
   }
 
   & .nav {
-    width: inherit;
+    width: 100%;
     flex-grow: 1;
     display: flex;
     flex-direction: column;
@@ -182,17 +181,41 @@ body {
       padding: 3% 15%;
     }
 
-    & .new-list-button {
-      border-top: 1px solid gray;
-      color: blue;
+    & .new-list-wrap {
+      position: relative;
+
+      & .new-list-button {
+        color: blue;
+        border-top: 1px solid gray;
+      }
+
+      & .new-list-form {
+        position: absolute;
+        top: 0;
+        width: 100%;
+        text-align: center;
+
+        & .new-list-input {
+          width: 0;
+          z-index: 10;
+          animation: appearInputBox 0.3s forwards;
+          text-align: center;
+          padding: 3% 0;
+        }
+      }
     }
   }
   /* Small Devices, Tablets : 768px ~ */
   @media only screen and (min-width: 768px) {
+    width: 88.8%;
   }
 
   /* Medium Devices, Desktops : 992px ~ */
   @media only screen and (min-width: 992px) {
+    position: unset;
+    width: 33.3%;
+    left: 0;
+    opacity: 1;
   }
 }
 
@@ -209,6 +232,31 @@ body {
 
   & .content-wrap {
     flex-grow: 1;
+
+    & .new-item-wrap {
+      position: relative;
+
+      & .new-item-button {
+        color: blue;
+        border-top: 1px solid gray;
+        padding: 3% 6%;
+      }
+
+      & .new-item-form {
+        position: absolute;
+        top: 0;
+        width: 100%;
+        text-align: center;
+
+        & .new-item-input {
+          width: 0;
+          z-index: 10;
+          animation: appearInputBox 0.3s forwards;
+          text-align: center;
+          padding: 3% 0;
+        }
+      }
+    }
   }
 
   & .content-info {
@@ -240,9 +288,22 @@ body {
     text-align: center;
 
     & .content-item-wrap {
-      padding: 2%;
+      padding: 3% 5%;
       width: 100%;
       border-bottom: 1px solid gray;
+      display: flex;
+      justify-content: space-between;
+
+      & .checkbox-wrap {
+        display: flex;
+        width: 100%;
+        justify-content: flex-start;
+        align-items: center;
+
+        & .content-item.checkbox {
+          margin-right: 10px;
+        }
+      }
     }
   }
 
@@ -252,5 +313,24 @@ body {
 
   /* Medium Devices, Desktops : 992px ~ */
   @media only screen and (min-width: 992px) {
+    width: 66.6%;
+  }
+}
+
+@keyframes appearInputBox {
+  from {
+    width: 0;
+  }
+  to {
+    width: 100%;
+  }
+}
+
+@keyframes disAppearInputBox {
+  from {
+    width: 100%;
+  }
+  to {
+    width: 0;
   }
 }

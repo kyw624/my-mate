@@ -47,24 +47,18 @@
             </li>
           </ul>
           <ul class="nav__custom-list list-wrap">
-            <li class="nav__custom-item item-wrap">
+            <!-- <li class="nav__custom-item item-wrap">
               <span class="item-name">Custom</span>
               <span class="item-count">1</span>
-            </li>
-            <li class="nav__custom-item item-wrap">
-              <span class="item-name">Custom</span>
-              <span class="item-count">1</span>
-            </li>
-            <li class="nav__custom-item item-wrap">
-              <span class="item-name">Custom</span>
-              <span class="item-count">1</span>
-            </li>
+            </li> -->
           </ul>
-          <div class="new-list-button item-wrap">
-            <span class="new-list-button__logo">+ New list</span>
-            <span class="new-list-button__label"></span>
+          <div class="new-list-wrap">
+            <div class="new-list-button item-wrap">
+              <span class="new-list-button__logo">+ New list</span>
+              <span class="new-list-button__empty"></span>
+            </div>
+            <!-- <form class="new-list-form" type="submit"></form> -->
           </div>
-          <!-- <form class="new-list-form" type="submit"></form> -->
         </nav>
       </aside>
 
@@ -79,31 +73,71 @@
         <section class="content-wrap content-box">
           <ul class="content-list">
             <li class="content-item-wrap">
-              <span class="content-item checkbox">O</span>
-              <span class="content-item">할 일 목록 1</span>
+              <div class="checkbox-wrap">
+                <input
+                  class="content-item checkbox"
+                  id="item-checkbox"
+                  type="checkbox"
+                />
+                <label class="content-item" for="item-checkbox"
+                  >할 일 목록 1</label
+                >
+              </div>
               <span class="content-item favorite">⭐</span>
             </li>
             <li class="content-item-wrap">
-              <span class="content-item checkbox">O</span>
-              <span class="content-item">할 일 목록 2</span>
+              <div class="checkbox-wrap">
+                <input
+                  class="content-item checkbox"
+                  id="item-checkbox"
+                  type="checkbox"
+                />
+                <label class="content-item" for="item-checkbox"
+                  >할 일 목록 2</label
+                >
+              </div>
               <span class="content-item favorite">⭐</span>
             </li>
             <li class="content-item-wrap">
-              <span class="content-item checkbox">O</span>
-              <span class="content-item">할 일 목록 3</span>
+              <div class="checkbox-wrap">
+                <input
+                  class="content-item checkbox"
+                  id="item-checkbox"
+                  type="checkbox"
+                />
+                <label class="content-item" for="item-checkbox"
+                  >할 일 목록 3</label
+                >
+              </div>
               <span class="content-item favorite">⭐</span>
             </li>
             <li class="content-item-wrap">
-              <span class="content-item checkbox">O</span>
-              <span class="content-item">할 일 목록 4</span>
+              <div class="checkbox-wrap">
+                <input
+                  class="content-item checkbox"
+                  id="item-checkbox"
+                  type="checkbox"
+                />
+                <label class="content-item" for="item-checkbox"
+                  >할 일 목록 4</label
+                >
+              </div>
               <span class="content-item favorite">⭐</span>
             </li>
           </ul>
+          <div class="new-item-wrap">
+            <div class="new-item-button item-wrap">
+              <span class="new-item-button__logo">+ New item</span>
+              <span class="new-item-button__empty"></span>
+            </div>
+            <!-- <form class="new-item-form" type="submit"></form> -->
+          </div>
         </section>
       </article>
     </main>
 
     <script src="js/header-clock.js"></script>
     <script src="js/nav.js"></script>
+    <!-- <script src="js/content.js"></script> -->
   </body>
 </html>
