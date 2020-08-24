@@ -1,6 +1,6 @@
 const newItemBtn = document.querySelector('.new-item-button');
 
-function appendList(e) {
+function appendTask(e) {
   e.preventDefault();
   const newItemInput = document.querySelector('.new-item-input');
   const value = newItemInput.value.trim();
@@ -46,7 +46,7 @@ function appearInputBox() {
   newItemWrap.append(newItemForm);
   newItemInput.focus();
 
-  newItemForm.addEventListener('submit', appendList);
+  newItemForm.addEventListener('submit', appendTask);
   newItemInput.addEventListener('focusout', focusOutTaskInput);
 }
 

@@ -2,7 +2,7 @@ const menuBar = document.querySelector('#hamburger');
 const sideBar = document.querySelector('.side-bar');
 const newListBtn = document.querySelector('.new-list-button');
 
-function appendTask(e) {
+function appendList(e) {
   e.preventDefault();
   const newListInput = document.querySelector('.new-list-input');
   const value = newListInput.value.trim();
@@ -38,7 +38,7 @@ function appearInputBox() {
   newListWrap.append(newListForm);
   newListInput.focus();
 
-  newListForm.addEventListener('submit', appendTask);
+  newListForm.addEventListener('submit', appendList);
   newListInput.addEventListener('focusout', focusOutListInput);
 }
 
