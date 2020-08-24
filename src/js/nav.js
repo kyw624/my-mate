@@ -2,7 +2,7 @@ const menuBar = document.querySelector('#hamburger');
 const sideBar = document.querySelector('.side-bar');
 const newListBtn = document.querySelector('.new-list-button');
 
-function appendList(e) {
+function appendTask(e) {
   e.preventDefault();
   const newListInput = document.querySelector('.new-list-input');
   const value = newListInput.value.trim();
@@ -38,16 +38,16 @@ function appearInputBox() {
   newListWrap.append(newListForm);
   newListInput.focus();
 
-  newListForm.addEventListener('submit', appendList);
-  newListInput.addEventListener('focusout', focusOutInput);
+  newListForm.addEventListener('submit', appendTask);
+  newListInput.addEventListener('focusout', focusOutListInput);
 }
 
-function focusOutInput() {
+function focusOutListInput() {
   const newListForm = document.querySelector('.new-list-form');
   const newListInput = document.querySelector('.new-list-input');
 
   if (!newListInput.value) {
-    removeInput(newListForm);
+    removeListInput(newListForm);
   }
 
   newListInput.blur();
@@ -60,14 +60,14 @@ function toggleNav() {
     if (document.querySelector('.new-list-form')) {
       const newListForm = document.querySelector('.new-list-form');
       if (newListForm.hasChildNodes()) {
-        removeInput(newListForm);
+        removeListInput(newListForm);
       }
     }
     sideBar.classList.remove('clicked');
   }
 }
 
-function removeInput(form) {
+function removeListInput(form) {
   const newListWrap = document.querySelector('.new-list-wrap');
   form.firstChild.style.animation = 'disAppearInputBox .3s';
   setTimeout(() => {
