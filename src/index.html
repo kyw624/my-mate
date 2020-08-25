@@ -37,14 +37,10 @@
         </article>
         <nav class="nav">
           <ul class="nav__default-list list-wrap">
-            <li class="nav__default-item item-wrap">
+            <!-- <li class="nav__default-item item-wrap">
               <span class="item-name">Important</span>
               <span class="item-count">1</span>
-            </li>
-            <li class="nav__default-item item-wrap">
-              <span class="item-name">Tasks</span>
-              <span class="item-count">1</span>
-            </li>
+            </li> -->
           </ul>
           <ul class="nav__custom-list list-wrap">
             <!-- <li class="nav__custom-item item-wrap">
@@ -64,70 +60,32 @@
 
       <article class="content">
         <section class="content-info content-box">
-          <span class="content-info-title info-item">
-            <div>List Title</div>
-            <div>Date</div>
+          <span class="content-info-wrap info-item">
+            <div class="content-info-title">List Title</div>
+            <div class="content-info-date">Date</div>
           </span>
           <span class="content-info-button info-item">Button</span>
         </section>
         <section class="content-wrap content-box">
           <ul class="content-list">
             <li class="content-item-wrap">
-              <div class="checkbox-wrap">
-                <input
-                  class="content-item checkbox"
-                  id="item-checkbox"
-                  type="checkbox"
-                />
-                <label class="content-item" for="item-checkbox"
-                  >할 일 목록 1</label
-                >
+              <span class="content-item">할 일 목록 1</span>
+              <div class="content-item button-wrap">
+                <span class="content-item favorite-item">⭐</span>
+                <span class="content-item delete-item">❎</span>
               </div>
-              <span class="content-item favorite">⭐</span>
             </li>
             <li class="content-item-wrap">
-              <div class="checkbox-wrap">
-                <input
-                  class="content-item checkbox"
-                  id="item-checkbox"
-                  type="checkbox"
-                />
-                <label class="content-item" for="item-checkbox"
-                  >할 일 목록 2</label
-                >
+              <span class="content-item">할 일 목록 1</span>
+              <div class="content-item button-wrap">
+                <span class="content-item favorite-item">⭐</span>
+                <span class="content-item delete-item">❎</span>
               </div>
-              <span class="content-item favorite">⭐</span>
-            </li>
-            <li class="content-item-wrap">
-              <div class="checkbox-wrap">
-                <input
-                  class="content-item checkbox"
-                  id="item-checkbox"
-                  type="checkbox"
-                />
-                <label class="content-item" for="item-checkbox"
-                  >할 일 목록 3</label
-                >
-              </div>
-              <span class="content-item favorite">⭐</span>
-            </li>
-            <li class="content-item-wrap">
-              <div class="checkbox-wrap">
-                <input
-                  class="content-item checkbox"
-                  id="item-checkbox"
-                  type="checkbox"
-                />
-                <label class="content-item" for="item-checkbox"
-                  >할 일 목록 4</label
-                >
-              </div>
-              <span class="content-item favorite">⭐</span>
             </li>
           </ul>
           <div class="new-item-wrap">
             <div class="new-item-button item-wrap">
-              <span class="new-item-button__logo">+ New item</span>
+              <span class="new-item-button__logo">+ Add a task</span>
               <span class="new-item-button__empty"></span>
             </div>
             <!-- <form class="new-item-form" type="submit"></form> -->
@@ -138,6 +96,6 @@
 
     <script src="js/header-clock.js"></script>
     <script src="js/nav.js"></script>
-    <!-- <script src="js/content.js"></script> -->
+    <script src="js/main.js"></script>
   </body>
 </html>
