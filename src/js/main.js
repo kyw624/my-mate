@@ -1,9 +1,8 @@
-// let DEFAULT_LS = { Important: [], Tasks: [] };
-let DEFAULT_LS = localStorage.getItem('DEFAULT_LS');
-let CUSTOM_LS = localStorage.getItem('CUSTOM_LS');
 let defaultListArray = [];
 let customListArray = [];
 let itemArray = [];
+const defaultList = document.querySelector('.nav__default-list');
+const customList = document.querySelector('.nav__custom-list');
 const newListButton = document.querySelector('.new-list-button');
 const newItemButton = document.querySelector('.new-item-button');
 
@@ -14,50 +13,40 @@ function init() {
 function loadItems() {
   const defaultValue = localStorage.getItem('DEFAULT_LS');
   const customValue = localStorage.getItem('CUSTOM_LS');
+  const renderInitList = [defaultList, customList];
+  let defaultParse;
+  let customParse;
 
-  console.log(defaultValue);
-  console.log(customValue);
+  renderInitList.forEach((x) => renderInit(x));
 
-  if (defaultValue !== null) {
-    const defaultParse = JSON.parse(defaultValue);
-    console.log(defaultParse);
+  if (defaultValue === null) {
+    localStorage.setItem(
+      'DEFAULT_LS',
+      JSON.stringify([
+        { id: '', Important: [] },
+        { id: '', Tasks: [] },
+      ])
+    );
   }
+  defaultParse = JSON.parse(localStorage.getItem('DEFAULT_LS'));
 
-  if (customValue !== null) {
-    const customParse = JSON.parse(customValue);
-    console.log(customParse);
+  defaultParse.forEach((item) =>
+    appendItem(Object.keys(item)[1], item.id, defaultList)
+  );
+
+  if (customValue === null) {
+    localStorage.setItem('CUSTOM_LS', JSON.stringify([]));
   }
+  customParse = JSON.parse(localStorage.getItem('CUSTOM_LS'));
 
-  // if (DEFAULT_LS !== null) {
-  //   const defaultValues = JSON.parse(localStorage.getItem('DEFAULT_LS'))[
-  //     'Important'
-  //   ];
-  // } else {
-  //   localStorage.setItem(
-  //     'DEFAULT_LS',
-  //     JSON.stringify({ Important: [], Tasks: [] })
-  //   );
-  // }
-
-  // // listArr.forEach((x) => renderInit(x));
-  // const defaultParse = JSON.parse(localStorage.getItem('DEFAULT_LS'));
-  // const test = Object.keys(defaultParse);
-
-  // test.forEach((x) => appendItem(x));
-  // addList(DEFAULT_LS);
-
-  // if (!isEmpty(CUSTOM_LS)) {
-  //   appendList(CUSTOM_LS);
-  // }
-
-  // if (!isEmpty(defaultValues)) {
-  //   appendItem(DEFAULT_LS);
-  // }
+  customParse.forEach((item) =>
+    appendItem(Object.keys(item)[1], item['id'], customList)
+  );
 }
 
 function renderInit(item) {
   while (item.hasChildNodes()) {
-    item.remove(item.firstChild);
+    item.removeChild(item.firstChild);
   }
 }
 
@@ -109,46 +98,25 @@ function addItem(e) {
   const value = input.value;
 
   if (value != false) {
-    // timestamp로 id 설정.
-    // const id = new Date().getTime();
+    const id = new Date().getTime();
 
-    // appendItem(value.trim(), id, target);
-    appendItem(value.trim(), target);
+    appendItem(value.trim(), id, target);
 
     input.value = '';
     input.blur();
   }
 }
 
-function appendItem(
-  value,
-  target = document.querySelector('.nav__default-list')
-) {
+function appendItem(value, id, target) {
   const li = document.createElement('li');
-  const id = new Date().getTime();
-  let obj;
-  console.log(`target: ${target}`);
+  let obj = {};
+
+  if (id === '') {
+    id = new Date().getTime();
+  }
 
   li.id = id;
-
-  if (target === null) {
-    const name = document.createElement('span');
-    const count = document.createElement('span');
-
-    li.classList.add('nav__default-item', 'item-wrap');
-    name.classList.add('item-name');
-    count.classList.add('item-count');
-
-    li.append(name);
-    li.append(count);
-
-    obj = {
-      id,
-      name: value,
-    };
-    defaultListArray.push(obj);
-    console.log(`obj: ${obj}`);
-  } else if (target.classList.contains('content-list')) {
+  if (target.classList.contains('content-list')) {
     // Item
     const task = document.createElement('span');
     const buttonWrap = document.createElement('div');
@@ -176,41 +144,63 @@ function appendItem(
     };
     itemArray.push(obj);
   } else {
-    // List
-    const name = document.createElement('span');
-    const count = document.createElement('span');
+    if (target === defaultList) {
+      // Deafult List 렌더링
+      const name = document.createElement('span');
+      const count = document.createElement('span');
 
-    li.classList.add('nav__custom-item', 'item-wrap');
-    name.classList.add('item-name');
-    count.classList.add('item-count');
+      li.classList.add('nav__default-item', 'item-wrap');
+      name.classList.add('item-name');
+      count.classList.add('item-count');
 
-    name.innerHTML = value;
+      name.innerHTML = value;
 
-    li.append(name);
-    li.append(count);
+      li.append(name);
+      li.append(count);
+      defaultList.append(li);
 
-    obj = {
-      id,
-      name: value,
-    };
-    customListArray.push(obj);
+      obj['id'] = id;
+      obj[value] = [];
+
+      defaultListArray.push(obj);
+    } else {
+      // Custom List
+      const name = document.createElement('span');
+      const count = document.createElement('span');
+
+      li.classList.add('nav__custom-item', 'item-wrap');
+      name.classList.add('item-name');
+      count.classList.add('item-count');
+
+      name.innerHTML = value;
+
+      li.append(name);
+      li.append(count);
+      customList.append(li);
+
+      obj['id'] = id;
+      obj[value] = [];
+
+      customListArray.push(obj);
+    }
+    // li.addEventListener('click', changeList);
   }
   target.append(li);
-  saveItem();
+
+  saveItem(target);
 }
 
-function saveItem() {
-  console.log(`defaultListArray: ${defaultListArray}`);
-  console.log(`customListArray: ${customListArray}`);
+function changeList() {}
 
-  console.log(customListArray);
-
-  defaultListArray.forEach((x) => {
-    localStorage.setItem('DEFAULT_LS', (x.name = [x]));
-  });
-  // customListArray.forEach((x) => {
-  //   localStorage.setItem('CUSTOM_LS', JSON.stringify((x.name = [x])));
-  // });
+function saveItem(target) {
+  if (target.classList.contains('content-list')) {
+  } else {
+    if (target === defaultList) {
+      localStorage.setItem('DEFAULT_LS', JSON.stringify(defaultListArray));
+    } else {
+      localStorage.setItem('CUSTOM_LS', JSON.stringify(customListArray));
+    }
+  }
 }
 
 function focusOutInput(e) {
