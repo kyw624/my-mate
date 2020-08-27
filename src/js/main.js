@@ -5,17 +5,28 @@ const defaultList = document.querySelector('.nav__default-list');
 const customList = document.querySelector('.nav__custom-list');
 const newListButton = document.querySelector('.new-list-button');
 const newItemButton = document.querySelector('.new-item-button');
+const menuBar = document.querySelector('#hamburger');
+const sideBar = document.querySelector('.side-bar');
 
 function init() {
   loadItems();
+  menuBar.addEventListener('click', toggleNav);
+  newListButton.addEventListener('click', createForm);
+  newItemButton.addEventListener('click', createForm);
+}
+
+function toggleNav() {
+  if (menuBar.checked) {
+    sideBar.classList.add('clicked');
+  } else {
+    sideBar.classList.remove('clicked');
+  }
 }
 
 function loadItems() {
   const defaultValue = localStorage.getItem('DEFAULT_LS');
   const customValue = localStorage.getItem('CUSTOM_LS');
   const renderInitList = [defaultList, customList];
-  let defaultParse;
-  let customParse;
 
   renderInitList.forEach((x) => renderInit(x));
 
@@ -28,7 +39,7 @@ function loadItems() {
       ])
     );
   }
-  defaultParse = JSON.parse(localStorage.getItem('DEFAULT_LS'));
+  const defaultParse = JSON.parse(localStorage.getItem('DEFAULT_LS'));
 
   defaultParse.forEach((item) =>
     appendItem(Object.keys(item)[1], item.id, defaultList)
@@ -37,7 +48,7 @@ function loadItems() {
   if (customValue === null) {
     localStorage.setItem('CUSTOM_LS', JSON.stringify([]));
   }
-  customParse = JSON.parse(localStorage.getItem('CUSTOM_LS'));
+  const customParse = JSON.parse(localStorage.getItem('CUSTOM_LS'));
 
   customParse.forEach((item) =>
     appendItem(Object.keys(item)[1], item['id'], customList)
@@ -47,24 +58,6 @@ function loadItems() {
 function renderInit(item) {
   while (item.hasChildNodes()) {
     item.removeChild(item.firstChild);
-  }
-}
-
-function isEmpty(instance) {
-  // 빈 배열
-  if (instance.constructor === Array) {
-    if (instance.length === 0) {
-      return true;
-    }
-    return false;
-  }
-  // 빈 객체
-  else if (instance.constructor === Object) {
-    if (Object.keys(instance).length === 0) {
-      return true;
-    }
-    return false;
-  } else {
   }
 }
 
@@ -93,7 +86,15 @@ function createForm(e) {
 
 function addItem(e) {
   e.preventDefault();
-  const target = e.target.parentElement.previousElementSibling;
+  let target;
+  const parent = e.target.parentElement;
+  if (parent.classList.contains('new-list-wrap')) {
+    console.log('if');
+    target = parent.previousElementSibling;
+  } else {
+    console.log('else');
+    target = parent.nextElementSibling;
+  }
   const input = e.target.firstChild;
   const value = input.value;
 
@@ -116,6 +117,7 @@ function appendItem(value, id, target) {
   }
 
   li.id = id;
+
   if (target.classList.contains('content-list')) {
     // Item
     const task = document.createElement('span');
@@ -183,14 +185,24 @@ function appendItem(value, id, target) {
 
       customListArray.push(obj);
     }
-    // li.addEventListener('click', changeList);
+    li.addEventListener('click', changeList);
   }
   target.append(li);
 
   saveItem(target);
 }
 
-function changeList() {}
+function changeList(e) {
+  const listName = e.currentTarget.firstChild.innerText;
+  const listTitle = document.querySelector('.content-info-title');
+
+  listTitle.innerHTML = listName;
+
+  if (sideBar.classList.contains('clicked')) {
+    sideBar.classList.remove('clicked');
+  }
+  menuBar.checked = false;
+}
 
 function saveItem(target) {
   if (target.classList.contains('content-list')) {
@@ -227,6 +239,3 @@ function removeForm(form) {
 
 // Run
 init();
-
-newListButton.addEventListener('click', createForm);
-newItemButton.addEventListener('click', createForm);
