@@ -3,13 +3,14 @@ let customListArray = [];
 let itemArray = [];
 const defaultList = document.querySelector('.nav__default-list');
 const customList = document.querySelector('.nav__custom-list');
+const contentList = document.querySelector('.content-list');
 const newListButton = document.querySelector('.new-list-button');
 const newItemButton = document.querySelector('.new-item-button');
 const menuBar = document.querySelector('#hamburger');
 const sideBar = document.querySelector('.side-bar');
 
 function init() {
-  loadItems();
+  loadList();
   menuBar.addEventListener('click', toggleNav);
   newListButton.addEventListener('click', createForm);
   newItemButton.addEventListener('click', createForm);
@@ -23,36 +24,56 @@ function toggleNav() {
   }
 }
 
-function loadItems() {
-  const defaultValue = localStorage.getItem('DEFAULT_LS');
-  const customValue = localStorage.getItem('CUSTOM_LS');
-  const renderInitList = [defaultList, customList];
+function loadList() {
+  const defaultListValue = localStorage.getItem('DEFAULT_LIST');
+  const customListValue = localStorage.getItem('CUSTOM_LIST');
+  const renderInitList = [defaultList, customList, contentList];
 
-  renderInitList.forEach((x) => renderInit(x));
+  renderInitList.forEach((item) => renderInit(item));
 
-  if (defaultValue === null) {
+  if (defaultListValue === null) {
+    const id = new Date().getTime();
     localStorage.setItem(
-      'DEFAULT_LS',
+      'DEFAULT_LIST',
       JSON.stringify([
-        { id: '', Important: [] },
-        { id: '', Tasks: [] },
+        { id, name: 'Important' },
+        { id: id + 1, name: 'Tasks' },
       ])
     );
   }
-  const defaultParse = JSON.parse(localStorage.getItem('DEFAULT_LS'));
-
-  defaultParse.forEach((item) =>
-    appendItem(Object.keys(item)[1], item.id, defaultList)
-  );
-
-  if (customValue === null) {
-    localStorage.setItem('CUSTOM_LS', JSON.stringify([]));
+  if (customListValue === null) {
+    localStorage.setItem('CUSTOM_LIST', JSON.stringify([]));
   }
-  const customParse = JSON.parse(localStorage.getItem('CUSTOM_LS'));
 
-  customParse.forEach((item) =>
-    appendItem(Object.keys(item)[1], item['id'], customList)
-  );
+  const defaultListParse = JSON.parse(localStorage.getItem('DEFAULT_LIST'));
+  const customListParse = JSON.parse(localStorage.getItem('CUSTOM_LIST'));
+
+  defaultListParse.forEach((item) => {
+    if (localStorage.getItem(item.name) === null) {
+      localStorage.setItem(item.name, JSON.stringify([]));
+    }
+    appendItem(item.name, item.id, defaultList);
+  });
+
+  customListParse.forEach((item) => {
+    if (localStorage.getItem(item.name) === null) {
+      localStorage.setItem(item.name, JSON.stringify([]));
+    }
+    appendItem(item.name, item.id, customList);
+  });
+
+  loadItem();
+}
+
+function loadItem() {
+  const importantValue = localStorage.getItem('Important');
+
+  if (importantValue !== null) {
+    const importantParse = JSON.parse(importantValue);
+    importantParse.forEach((item) => {
+      appendItem(item.value, item.id, contentList);
+    });
+  }
 }
 
 function renderInit(item) {
@@ -86,15 +107,16 @@ function createForm(e) {
 
 function addItem(e) {
   e.preventDefault();
+
   let target;
   const parent = e.target.parentElement;
+
   if (parent.classList.contains('new-list-wrap')) {
-    console.log('if');
     target = parent.previousElementSibling;
   } else {
-    console.log('else');
     target = parent.nextElementSibling;
   }
+
   const input = e.target.firstChild;
   const value = input.value;
 
@@ -110,40 +132,39 @@ function addItem(e) {
 
 function appendItem(value, id, target) {
   const li = document.createElement('li');
-  let obj = {};
-
-  if (id === '') {
-    id = new Date().getTime();
-  }
-
+  let obj;
   li.id = id;
 
-  if (target.classList.contains('content-list')) {
+  if (target === contentList) {
     // Item
+    const currentList = document.querySelector('.content-info-title').innerText;
     const task = document.createElement('span');
     const buttonWrap = document.createElement('div');
-    const favoriteButton = document.createElement('span');
-    const deleteButton = document.createElement('span');
+    const importantBtn = document.createElement('span');
+    const deleteBtn = document.createElement('span');
 
     li.classList.add('content-item-wrap');
     task.classList.add('content-item');
     buttonWrap.classList.add('content-item', 'button-wrap');
-    favoriteButton.classList.add('content-item', 'favorite-item');
-    deleteButton.classList.add('content-item', 'delete-item');
+    importantBtn.classList.add('content-item', 'important-item');
+    deleteBtn.classList.add('content-item', 'delete-item');
 
     task.innerHTML = value;
-    favoriteButton.innerHTML = '⭐';
-    deleteButton.innerHTML = '❎';
+    importantBtn.innerHTML = '⭐';
+    deleteBtn.innerHTML = '❎';
 
-    buttonWrap.append(favoriteButton);
-    buttonWrap.append(deleteButton);
+    buttonWrap.append(importantBtn);
+    buttonWrap.append(deleteBtn);
     li.append(task);
     li.append(buttonWrap);
+    // li.addEventListener('click', clickItem);
+    // li.addEventListener('click', deleteItem);
 
     obj = {
       id,
       value,
     };
+
     itemArray.push(obj);
   } else {
     if (target === defaultList) {
@@ -161,8 +182,10 @@ function appendItem(value, id, target) {
       li.append(count);
       defaultList.append(li);
 
-      obj['id'] = id;
-      obj[value] = [];
+      obj = {
+        id,
+        name: value,
+      };
 
       defaultListArray.push(obj);
     } else {
@@ -180,9 +203,10 @@ function appendItem(value, id, target) {
       li.append(count);
       customList.append(li);
 
-      obj['id'] = id;
-      obj[value] = [];
-
+      obj = {
+        id,
+        name: value,
+      };
       customListArray.push(obj);
     }
     li.addEventListener('click', changeList);
@@ -195,8 +219,13 @@ function appendItem(value, id, target) {
 function changeList(e) {
   const listName = e.currentTarget.firstChild.innerText;
   const listTitle = document.querySelector('.content-info-title');
-
   listTitle.innerHTML = listName;
+
+  renderInit(contentList);
+  itemArray = [];
+
+  const targetList = JSON.parse(localStorage.getItem(listName));
+  targetList.forEach((item) => appendItem(item.value, item.id, contentList));
 
   if (sideBar.classList.contains('clicked')) {
     sideBar.classList.remove('clicked');
@@ -205,13 +234,16 @@ function changeList(e) {
 }
 
 function saveItem(target) {
-  if (target.classList.contains('content-list')) {
-  } else {
-    if (target === defaultList) {
-      localStorage.setItem('DEFAULT_LS', JSON.stringify(defaultListArray));
-    } else {
-      localStorage.setItem('CUSTOM_LS', JSON.stringify(customListArray));
-    }
+  if (target === contentList) {
+    const currentList = document.querySelector('.content-info-title').innerText;
+    localStorage.setItem(currentList, JSON.stringify(itemArray));
+  }
+
+  if (defaultListArray.length !== 0) {
+    localStorage.setItem('DEFAULT_LIST', JSON.stringify(defaultListArray));
+  }
+  if (customListArray.length !== 0) {
+    localStorage.setItem('CUSTOM_LIST', JSON.stringify(customListArray));
   }
 }
 
