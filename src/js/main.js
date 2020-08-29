@@ -164,7 +164,6 @@ function appendItem(value, id, target) {
       id,
       value,
     };
-
     itemArray.push(obj);
   } else {
     if (target === defaultList) {
@@ -186,7 +185,6 @@ function appendItem(value, id, target) {
         id,
         name: value,
       };
-
       defaultListArray.push(obj);
     } else {
       // Custom List
@@ -225,7 +223,10 @@ function changeList(e) {
   itemArray = [];
 
   const targetList = JSON.parse(localStorage.getItem(listName));
-  targetList.forEach((item) => appendItem(item.value, item.id, contentList));
+
+  if (targetList !== null) {
+    targetList.forEach((item) => appendItem(item.value, item.id, contentList));
+  }
 
   if (sideBar.classList.contains('clicked')) {
     sideBar.classList.remove('clicked');
@@ -236,14 +237,21 @@ function changeList(e) {
 function saveItem(target) {
   if (target === contentList) {
     const currentList = document.querySelector('.content-info-title').innerText;
+
     localStorage.setItem(currentList, JSON.stringify(itemArray));
   }
 
   if (defaultListArray.length !== 0) {
     localStorage.setItem('DEFAULT_LIST', JSON.stringify(defaultListArray));
   }
+
   if (customListArray.length !== 0) {
+    const currentList = customListArray[customListArray.length - 1].name;
     localStorage.setItem('CUSTOM_LIST', JSON.stringify(customListArray));
+
+    if (localStorage.getItem(currentList) === null) {
+      localStorage.setItem(currentList, JSON.stringify([]));
+    }
   }
 }
 
