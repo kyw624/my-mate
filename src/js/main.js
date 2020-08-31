@@ -169,48 +169,41 @@ function appendItem(value, id, target) {
     };
     itemArray.push(obj);
   } else {
+    // List
+    const name = document.createElement('span');
+    const count = document.createElement('span');
+
+    name.classList.add('item-name');
+    count.classList.add('item-count');
+
+    name.innerHTML = value;
+    if (JSON.parse(localStorage.getItem(value)) === null) {
+      count.innerHTML = 0;
+    } else {
+      count.innerHTML = JSON.parse(localStorage.getItem(value)).length;
+    }
+
+    li.append(name);
+    li.append(count);
+
+    obj = {
+      id,
+      name: value,
+    };
+
+    li.addEventListener('click', changeList);
+
     if (target === defaultList) {
-      // Deafult List 렌더링
-      const name = document.createElement('span');
-      const count = document.createElement('span');
-
+      // Deafult List
       li.classList.add('nav__default-item', 'item-wrap');
-      name.classList.add('item-name');
-      count.classList.add('item-count');
 
-      name.innerHTML = value;
-
-      li.append(name);
-      li.append(count);
-      defaultList.append(li);
-
-      obj = {
-        id,
-        name: value,
-      };
       defaultListArray.push(obj);
     } else {
       // Custom List
-      const name = document.createElement('span');
-      const count = document.createElement('span');
-
       li.classList.add('nav__custom-item', 'item-wrap');
-      name.classList.add('item-name');
-      count.classList.add('item-count');
 
-      name.innerHTML = value;
-
-      li.append(name);
-      li.append(count);
-      customList.append(li);
-
-      obj = {
-        id,
-        name: value,
-      };
       customListArray.push(obj);
     }
-    li.addEventListener('click', changeList);
   }
   target.append(li);
 
