@@ -361,6 +361,10 @@ body {
   padding: 3% 0;
 }
 
+.content .content-wrap .new-item-wrap.hide {
+  display: none;
+}
+
 .content .content-info {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -427,8 +431,14 @@ body {
   display: flex;
 }
 
-.content-list .content-item-wrap .content-item.button-wrap .favorite-item {
-  margin-right: 10px;
+.content-list .content-item-wrap .content-item.button-wrap .important-item {
+  margin-right: 5px;
+}
+
+.content-list .content-item-wrap .content-item.button-wrap .important-item.clicked {
+  margin-right: 5px;
+  color: transparent;
+  text-shadow: 0 0 0 #2c2cbe;
 }
 
 @media only screen and (min-width: 992px) {

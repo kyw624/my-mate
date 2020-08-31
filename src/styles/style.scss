@@ -286,6 +286,10 @@ body {
         }
       }
     }
+
+    & .new-item-wrap.hide {
+      display: none;
+    }
   }
 
   & .content-info {
@@ -326,8 +330,14 @@ body {
       & .content-item.button-wrap {
         display: flex;
 
-        & .favorite-item {
-          margin-right: 10px;
+        & .important-item {
+          margin-right: 5px;
+        }
+
+        & .important-item.clicked {
+          margin-right: 5px;
+          color: transparent;
+          text-shadow: 0 0 0 rgb(44, 44, 190);
         }
       }
     }

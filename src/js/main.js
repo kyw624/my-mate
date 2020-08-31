@@ -29,6 +29,10 @@ function loadList() {
   const customListValue = localStorage.getItem('CUSTOM_LIST');
   const renderInitList = [defaultList, customList, contentList];
 
+  if (document.querySelector('.content-info-title').innerText === 'Important') {
+    document.querySelector('.new-item-wrap').classList.add('hide');
+  }
+
   renderInitList.forEach((item) => renderInit(item));
 
   if (defaultListValue === null) {
@@ -234,6 +238,12 @@ function changeList(e) {
 
   renderInit(contentList);
   itemArray = [];
+
+  if (document.querySelector('.content-info-title').innerText === 'Important') {
+    document.querySelector('.new-item-wrap').classList.add('hide');
+  } else {
+    document.querySelector('.new-item-wrap').classList.remove('hide');
+  }
 
   const targetList = JSON.parse(localStorage.getItem(listName));
 
