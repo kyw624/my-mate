@@ -112,7 +112,7 @@ function addItem(e) {
   const parent = e.target.parentElement;
 
   if (parent.classList.contains('new-list-wrap')) {
-    target = parent.previousElementSibling;
+    target = parent.previousElementSibling.children[1];
   } else {
     target = parent.nextElementSibling;
   }
@@ -122,8 +122,11 @@ function addItem(e) {
 
   if (value != false) {
     const id = new Date().getTime();
-
     appendItem(value.trim(), id, target);
+
+    if (target === contentList) {
+      updateCount();
+    }
 
     input.value = '';
     input.blur();
@@ -212,6 +215,23 @@ function appendItem(value, id, target) {
   target.append(li);
 
   saveItem(target);
+}
+
+function updateCount() {
+  const listName = document.querySelector('.content-info-title').innerText;
+  let targetList;
+
+  if (listName === 'Important' || listName === 'Tasks') {
+    targetList = document.querySelectorAll('.nav__default-list li');
+  } else {
+    targetList = document.querySelectorAll('.nav__custom-list li');
+  }
+
+  targetList.forEach((list) => {
+    if (list.firstChild.innerText === listName) {
+      list.lastChild.innerText = parseInt(list.lastChild.innerText) + 1;
+    }
+  });
 }
 
 function changeList(e) {
