@@ -56,14 +56,14 @@ function loadList() {
     if (localStorage.getItem(item.name) === null) {
       localStorage.setItem(item.name, JSON.stringify([]));
     }
-    appendItem(item.name, item.id, defaultList);
+    appendItem(item.name, item.id, defaultList, item.heart, item.state);
   });
 
   customListParse.forEach((item) => {
     if (localStorage.getItem(item.name) === null) {
       localStorage.setItem(item.name, JSON.stringify([]));
     }
-    appendItem(item.name, item.id, customList);
+    appendItem(item.name, item.id, customList, item.heart, item.state);
   });
 
   loadItem();
@@ -75,7 +75,7 @@ function loadItem() {
   if (importantValue !== null) {
     const importantParse = JSON.parse(importantValue);
     importantParse.forEach((item) => {
-      appendItem(item.value, item.id, contentList);
+      appendItem(item.value, item.id, contentList, item.heart, item.state);
     });
   }
 }
@@ -137,7 +137,7 @@ function addItem(e) {
   }
 }
 
-function appendItem(value, id, target) {
+function appendItem(value, id, target, heart = false, state = 'doing') {
   const li = document.createElement('li');
   let obj;
   li.id = id;
@@ -151,25 +151,41 @@ function appendItem(value, id, target) {
     const deleteBtn = document.createElement('span');
 
     li.classList.add('content-item-wrap');
-    task.classList.add('content-item');
+    task.classList.add('content-item', 'todo');
     buttonWrap.classList.add('content-item', 'button-wrap');
     importantBtn.classList.add('content-item', 'important-item');
     deleteBtn.classList.add('content-item', 'delete-item');
 
+    if (state === 'doing') {
+      task.classList.remove('done');
+    } else {
+      task.classList.add('done');
+    }
+
+    if (heart === true) {
+      importantBtn.classList.add('clicked');
+    } else {
+      importantBtn.classList.remove('clicked');
+    }
+
+    importantBtn.innerHTML = '🤍';
     task.innerHTML = value;
-    importantBtn.innerHTML = '⭐';
     deleteBtn.innerHTML = '❎';
 
     buttonWrap.append(importantBtn);
     buttonWrap.append(deleteBtn);
     li.append(task);
     li.append(buttonWrap);
-    // li.addEventListener('click', clickItem);
-    // li.addEventListener('click', deleteItem);
+
+    li.addEventListener('click', toggleItem);
+    importantBtn.addEventListener('click', toggleItem);
+    deleteBtn.addEventListener('click', deleteItem);
 
     obj = {
       id,
       value,
+      heart,
+      state,
     };
     itemArray.push(obj);
   } else {
@@ -214,6 +230,153 @@ function appendItem(value, id, target) {
   saveItem(target);
 }
 
+function deleteItem(e) {
+  e.stopPropagation();
+
+  const btn = e.target;
+  const li = btn.parentElement.parentElement;
+  const ul = li.parentElement;
+  let cleanArray = [];
+  let obj;
+
+  cleanArray = itemArray.filter((item) => {
+    return parseInt(li.id) !== item.id;
+  });
+
+  itemArray = cleanArray;
+
+  const listName = document.querySelector('.content-info-title').innerText;
+
+  if (listName === 'Important') {
+    const listParse = JSON.parse(localStorage.getItem('DEFAULT_LIST')).concat(
+      JSON.parse(localStorage.getItem('CUSTOM_LIST'))
+    );
+
+    listParse.forEach((list) => {
+      const parse = JSON.parse(localStorage.getItem(list.name));
+      let tmp = [];
+
+      parse.forEach((item, index) => {
+        if (parseInt(li.id) === item.id) {
+          parse.splice(index, 1);
+          localStorage.setItem(list.name, JSON.stringify(parse));
+          return;
+        }
+      });
+    });
+  } else {
+    let importantParse = JSON.parse(localStorage.getItem('Important'));
+
+    importantParse.forEach((item, index) => {
+      if (parseInt(li.id) === item.id) {
+        importantParse.splice(index, 1);
+      }
+    });
+
+    localStorage.setItem('Important', JSON.stringify(importantParse));
+  }
+
+  ul.removeChild(li);
+  updateCount();
+  saveItem(contentList);
+}
+
+function toggleItem(e) {
+  e.stopPropagation();
+
+  const listName = document.querySelector('.content-info-title').innerText;
+
+  if (e.currentTarget.classList.contains('important-item')) {
+    // 하트 클릭
+    const importantBtn = e.currentTarget;
+    const li = importantBtn.parentElement.parentElement;
+
+    itemArray.forEach((item, index) => {
+      if (parseInt(li.id) === item.id) {
+        item.heart = !item.heart;
+
+        if (listName === 'Important') {
+          if (!item.heart) {
+            const ul = li.parentElement;
+
+            itemArray.splice(index, 1);
+          }
+
+          const listParse = JSON.parse(
+            localStorage.getItem('DEFAULT_LIST')
+          ).concat(JSON.parse(localStorage.getItem('CUSTOM_LIST')));
+
+          listParse.forEach((list) => {
+            const parse = JSON.parse(localStorage.getItem(list.name));
+
+            parse.forEach((obj) => {
+              if (item.id === obj.id) {
+                obj.heart = item.heart;
+                localStorage.setItem(list.name, JSON.stringify(parse));
+              }
+            });
+          });
+        } else {
+          let importantParse = JSON.parse(localStorage.getItem('Important'));
+          if (item.heart) {
+            importantParse.push(item);
+          } else {
+            importantParse.splice(index, 1);
+          }
+
+          localStorage.setItem('Important', JSON.stringify(importantParse));
+        }
+        return;
+      }
+    });
+  } else {
+    // li 클릭
+    const li = e.currentTarget;
+
+    itemArray.forEach((item) => {
+      if (parseInt(li.id) === item.id) {
+        item.state = item.state === 'doing' ? 'done' : 'doing';
+
+        if (listName === 'Important') {
+          const listParse = JSON.parse(
+            localStorage.getItem('DEFAULT_LIST')
+          ).concat(JSON.parse(localStorage.getItem('CUSTOM_LIST')));
+
+          listParse.forEach((list) => {
+            const parse = JSON.parse(localStorage.getItem(list.name));
+
+            parse.forEach((obj) => {
+              if (item.id === obj.id) {
+                obj.state = item.state;
+                localStorage.setItem(list.name, JSON.stringify(parse));
+              }
+            });
+          });
+        } else {
+          let importantParse = JSON.parse(localStorage.getItem('Important'));
+
+          importantParse.forEach((obj) => {
+            if (item.id === obj.id) {
+              obj.state = item.state;
+              localStorage.setItem('Important', JSON.stringify(importantParse));
+            }
+          });
+        }
+      }
+    });
+  }
+  saveItem(contentList);
+  renderInit(contentList);
+
+  itemArray = [];
+
+  const parse = JSON.parse(localStorage.getItem(listName));
+
+  parse.forEach((item) => {
+    appendItem(item.value, item.id, contentList, item.heart, item.state);
+  });
+}
+
 function updateCount() {
   const listName = document.querySelector('.content-info-title').innerText;
   let targetList;
@@ -234,6 +397,16 @@ function updateCount() {
 function changeList(e) {
   const listName = e.currentTarget.firstChild.innerText;
   const listTitle = document.querySelector('.content-info-title');
+
+  if (listTitle.innerText === listName) {
+    if (sideBar.classList.contains('clicked')) {
+      sideBar.classList.remove('clicked');
+    }
+    menuBar.checked = false;
+
+    return;
+  }
+
   listTitle.innerHTML = listName;
 
   renderInit(contentList);
@@ -246,9 +419,12 @@ function changeList(e) {
   }
 
   const targetList = JSON.parse(localStorage.getItem(listName));
+  console.log(targetList);
 
   if (targetList !== null) {
-    targetList.forEach((item) => appendItem(item.value, item.id, contentList));
+    targetList.forEach((item) =>
+      appendItem(item.value, item.id, contentList, item.heart, item.state)
+    );
   }
 
   if (sideBar.classList.contains('clicked')) {
