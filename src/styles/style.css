@@ -394,7 +394,7 @@ body {
           justify-content: flex-start;
 }
 
-.content .content-info .content-info-button {
+.content .content-info .content-info-button-wrap {
   -ms-flex-item-align: end;
       align-self: flex-end;
 }
@@ -425,6 +425,16 @@ body {
           justify-content: space-between;
 }
 
+.content-list .content-item-wrap .content-item.todo {
+  width: 100%;
+  text-align: left;
+}
+
+.content-list .content-item-wrap .content-item.done {
+  text-decoration: line-through;
+  opacity: 0.6;
+}
+
 .content-list .content-item-wrap .content-item.button-wrap {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -436,7 +446,6 @@ body {
 }
 
 .content-list .content-item-wrap .content-item.button-wrap .important-item.clicked {
-  margin-right: 5px;
   color: transparent;
   text-shadow: 0 0 0 #2c2cbe;
 }

@@ -309,7 +309,7 @@ body {
       justify-content: flex-start;
     }
 
-    & .content-info-button {
+    & .content-info-button-wrap {
       align-self: flex-end;
     }
   }
@@ -327,6 +327,16 @@ body {
       display: flex;
       justify-content: space-between;
 
+      & .content-item.todo {
+        width: 100%;
+        text-align: left;
+      }
+
+      & .content-item.done {
+        text-decoration: line-through;
+        opacity: 0.6;
+      }
+
       & .content-item.button-wrap {
         display: flex;
 
@@ -335,7 +345,6 @@ body {
         }
 
         & .important-item.clicked {
-          margin-right: 5px;
           color: transparent;
           text-shadow: 0 0 0 rgb(44, 44, 190);
         }
