@@ -33,6 +33,13 @@ function loadList() {
     document.querySelector('.new-item-wrap').classList.add('hide');
   }
 
+  if (
+    document.querySelector('.content-info-title').innerText === 'Important' ||
+    document.querySelector('.content-info-title').innerText === 'Tasks'
+  ) {
+    document.querySelector('.content-info-button.delete').classList.add('hide');
+  }
+
   renderInitList.forEach((item) => renderInit(item));
 
   if (defaultListValue === null) {
@@ -422,6 +429,17 @@ function changeList(e) {
     document.querySelector('.new-item-wrap').classList.add('hide');
   } else {
     document.querySelector('.new-item-wrap').classList.remove('hide');
+  }
+
+  if (
+    document.querySelector('.content-info-title').innerText === 'Important' ||
+    document.querySelector('.content-info-title').innerText === 'Tasks'
+  ) {
+    document.querySelector('.content-info-button.delete').classList.add('hide');
+  } else {
+    document
+      .querySelector('.content-info-button.delete')
+      .classList.remove('hide');
   }
 
   const targetList = JSON.parse(localStorage.getItem(listName));

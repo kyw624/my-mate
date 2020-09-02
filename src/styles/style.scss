@@ -311,6 +311,10 @@ body {
 
     & .content-info-button-wrap {
       align-self: flex-end;
+
+      & .delete.hide {
+        display: none;
+      }
     }
   }
 
