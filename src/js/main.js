@@ -122,12 +122,29 @@ function addItem(e) {
   }
 
   const input = e.target.firstChild;
-  const value = input.value;
+  const value = input.value.trim();
+
+  if (target === customList) {
+    const mixList = defaultListArray.concat(customListArray);
+    let flag;
+
+    mixList.forEach((list) => {
+      if (list.name === value) {
+        flag = true;
+        return;
+      }
+    });
+
+    if (flag) {
+      input.value = '중복된 리스트명입니다.';
+      return;
+    }
+  }
 
   if (value != false) {
     const id = new Date().getTime();
 
-    appendItem(value.trim(), id, target);
+    appendItem(value, id, target);
 
     input.value = '';
     input.blur();
@@ -213,12 +230,10 @@ function appendItem(value, id, target, heart = false, state = 'doing') {
     if (target === defaultList) {
       // Deafult List
       li.classList.add('nav__default-item', 'item-wrap');
-
       defaultListArray.push(obj);
     } else {
       // Custom List
       li.classList.add('nav__custom-item', 'item-wrap');
-
       customListArray.push(obj);
     }
   }
