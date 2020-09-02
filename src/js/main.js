@@ -126,11 +126,8 @@ function addItem(e) {
 
   if (value != false) {
     const id = new Date().getTime();
-    appendItem(value.trim(), id, target);
 
-    if (target === contentList) {
-      updateCount();
-    }
+    appendItem(value.trim(), id, target);
 
     input.value = '';
     input.blur();
@@ -237,7 +234,6 @@ function deleteItem(e) {
   const li = btn.parentElement.parentElement;
   const ul = li.parentElement;
   let cleanArray = [];
-  let obj;
 
   cleanArray = itemArray.filter((item) => {
     return parseInt(li.id) !== item.id;
@@ -254,7 +250,6 @@ function deleteItem(e) {
 
     listParse.forEach((list) => {
       const parse = JSON.parse(localStorage.getItem(list.name));
-      let tmp = [];
 
       parse.forEach((item, index) => {
         if (parseInt(li.id) === item.id) {
@@ -277,7 +272,6 @@ function deleteItem(e) {
   }
 
   ul.removeChild(li);
-  updateCount();
   saveItem(contentList);
 }
 
@@ -318,6 +312,7 @@ function toggleItem(e) {
           });
         } else {
           let importantParse = JSON.parse(localStorage.getItem('Important'));
+
           if (item.heart) {
             importantParse.push(item);
           } else {
@@ -365,6 +360,7 @@ function toggleItem(e) {
       }
     });
   }
+
   saveItem(contentList);
   renderInit(contentList);
 
@@ -378,19 +374,14 @@ function toggleItem(e) {
 }
 
 function updateCount() {
-  const listName = document.querySelector('.content-info-title').innerText;
-  let targetList;
+  const li = Array.from(
+    document.querySelectorAll('.nav__default-list li')
+  ).concat(Array.from(document.querySelectorAll('.nav__custom-list li')));
 
-  if (listName === 'Important' || listName === 'Tasks') {
-    targetList = document.querySelectorAll('.nav__default-list li');
-  } else {
-    targetList = document.querySelectorAll('.nav__custom-list li');
-  }
+  li.forEach((element) => {
+    const name = element.firstChild.innerText;
 
-  targetList.forEach((list) => {
-    if (list.firstChild.innerText === listName) {
-      list.lastChild.innerText = parseInt(list.lastChild.innerText) + 1;
-    }
+    element.lastChild.innerText = JSON.parse(localStorage.getItem(name)).length;
   });
 }
 
@@ -419,7 +410,6 @@ function changeList(e) {
   }
 
   const targetList = JSON.parse(localStorage.getItem(listName));
-  console.log(targetList);
 
   if (targetList !== null) {
     targetList.forEach((item) =>
@@ -452,6 +442,8 @@ function saveItem(target) {
       localStorage.setItem(currentList, JSON.stringify([]));
     }
   }
+
+  updateCount();
 }
 
 function focusOutInput(e) {
