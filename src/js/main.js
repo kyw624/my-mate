@@ -342,7 +342,11 @@ function toggleItem(e) {
           if (item.heart) {
             importantParse.push(item);
           } else {
-            importantParse.splice(index, 1);
+            importantParse.forEach((important, importantIndex) => {
+              if (item.id === important.id) {
+                importantParse.splice(importantIndex, 1);
+              }
+            });
           }
 
           localStorage.setItem('Important', JSON.stringify(importantParse));
@@ -524,13 +528,15 @@ function createModal(e) {
   container.append(buttonWrap);
   buttonWrap.append(yesBtn);
   buttonWrap.append(noBtn);
-
   body.append(container);
 
-  if (type === 'reset') {
-  }
-  yesBtn.addEventListener('click');
-  noBtn.addEventListener('click', body.remove(container));
+  yesBtn.addEventListener('click', () => {
+    getListOption(type);
+    body.removeChild(container);
+  });
+  noBtn.addEventListener('click', () => {
+    body.removeChild(container);
+  });
 }
 
 function focusOutInput(e) {
