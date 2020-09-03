@@ -366,6 +366,75 @@ body {
   }
 }
 
+.modal {
+  border: 2px solid gray;
+  border-radius: 10px;
+  background-color: lightgray;
+  position: absolute;
+  top: 35%;
+  left: 10%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 80%;
+  height: 30%;
+  z-index: 10;
+  text-align: center;
+  font-size: 1.2rem;
+
+  &-content {
+    margin-bottom: 5%;
+    line-height: 1.6;
+    font-weight: bold;
+  }
+
+  &-button-wrap {
+    display: flex;
+    justify-content: space-between;
+
+    & .modal-button {
+      border: 1px solid gray;
+      margin: 0;
+      padding: 5% 5%;
+      width: 100px;
+      border-radius: 10px;
+      background-color: #fff;
+
+      &.yes {
+        margin-right: 10px;
+        color: lightseagreen;
+
+        &:hover {
+          background-color: lightseagreen;
+        }
+      }
+
+      &.no {
+        color: salmon;
+
+        &:hover {
+          background-color: salmon;
+        }
+      }
+
+      &:hover {
+        font-weight: bold;
+        color: white;
+        border: 1px solid white;
+      }
+    }
+  }
+
+  /* Small Devices, Tablets : 768px ~ */
+  @media only screen and (min-width: 768px) {
+  }
+
+  /* Medium Devices, Desktops : 992px ~ */
+  @media only screen and (min-width: 992px) {
+  }
+}
+
 @keyframes appearInputBox {
   from {
     width: 0;

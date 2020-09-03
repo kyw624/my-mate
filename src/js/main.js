@@ -8,12 +8,16 @@ const newListButton = document.querySelector('.new-list-button');
 const newItemButton = document.querySelector('.new-item-button');
 const menuBar = document.querySelector('#hamburger');
 const sideBar = document.querySelector('.side-bar');
+const deleteButton = document.querySelector('.content-info-button.delete');
+const resetButton = document.querySelector('.content-info-button.reset');
 
 function init() {
   loadList();
   menuBar.addEventListener('click', toggleNav);
   newListButton.addEventListener('click', createForm);
   newItemButton.addEventListener('click', createForm);
+  deleteButton.addEventListener('click', createModal);
+  resetButton.addEventListener('click', createModal);
 }
 
 function toggleNav() {
@@ -477,6 +481,56 @@ function saveItem(target) {
   }
 
   updateCount();
+}
+
+function createModal(e) {
+  const body = document.querySelector('body');
+  const modal = document.querySelector('.modal');
+  const type = e.target.innerText;
+
+  if (modal) {
+    const text = modal.firstChild.innerText;
+    if (
+      // 이미 띄워진 팝업창과 같을 경우
+      (type === 'DELETE' && text.indexOf('제거') !== -1) ||
+      (type === 'RESET' && text.indexOf('초기화') !== -1)
+    ) {
+      return;
+    }
+    body.removeChild(modal);
+  }
+
+  const container = document.createElement('div');
+  const content = document.createElement('div');
+  const buttonWrap = document.createElement('div');
+  const yesBtn = document.createElement('div');
+  const noBtn = document.createElement('div');
+
+  container.classList.add('modal');
+  content.classList.add('modal-content');
+  buttonWrap.classList.add('modal-button-wrap');
+  yesBtn.classList.add('modal-button', 'yes');
+  noBtn.classList.add('modal-button', 'no');
+
+  content.innerHTML = `${
+    type === 'DELETE'
+      ? '해당 리스트를 제거하시겠습니까?'
+      : '현재 아이템들을 초기화하시겠습니까?'
+  }`;
+  yesBtn.innerHTML = 'YES';
+  noBtn.innerHTML = 'NO';
+
+  container.append(content);
+  container.append(buttonWrap);
+  buttonWrap.append(yesBtn);
+  buttonWrap.append(noBtn);
+
+  body.append(container);
+
+  if (type === 'reset') {
+  }
+  yesBtn.addEventListener('click');
+  noBtn.addEventListener('click', body.remove(container));
 }
 
 function focusOutInput(e) {

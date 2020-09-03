@@ -460,6 +460,82 @@ body {
   }
 }
 
+.modal {
+  border: 2px solid gray;
+  border-radius: 10px;
+  background-color: lightgray;
+  position: absolute;
+  top: 35%;
+  left: 10%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  width: 80%;
+  height: 30%;
+  z-index: 10;
+  text-align: center;
+  font-size: 1.2rem;
+  /* Small Devices, Tablets : 768px ~ */
+  /* Medium Devices, Desktops : 992px ~ */
+}
+
+.modal-content {
+  margin-bottom: 5%;
+  line-height: 1.6;
+  font-weight: bold;
+}
+
+.modal-button-wrap {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.modal-button-wrap .modal-button {
+  border: 1px solid gray;
+  margin: 0;
+  padding: 5% 5%;
+  width: 100px;
+  border-radius: 10px;
+  background-color: #fff;
+}
+
+.modal-button-wrap .modal-button.yes {
+  margin-right: 10px;
+  color: lightseagreen;
+}
+
+.modal-button-wrap .modal-button.yes:hover {
+  background-color: lightseagreen;
+}
+
+.modal-button-wrap .modal-button.no {
+  color: salmon;
+}
+
+.modal-button-wrap .modal-button.no:hover {
+  background-color: salmon;
+}
+
+.modal-button-wrap .modal-button:hover {
+  font-weight: bold;
+  color: white;
+  border: 1px solid white;
+}
+
 @-webkit-keyframes appearInputBox {
   from {
     width: 0;
