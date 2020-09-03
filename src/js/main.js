@@ -561,5 +561,80 @@ function removeForm(form) {
   }, 250);
 }
 
+function getListOption(type) {
+  const currentListTitle = document.querySelector('.content-info-title');
+
+  if (type === 'DELETE') {
+    // 리스트 제거
+    let importantParse = JSON.parse(localStorage.getItem('Important'));
+    const ul = document.querySelector('.nav__custom-list');
+
+    if (itemArray.length !== 0) {
+      itemArray.forEach((current) => {
+        importantParse.forEach((important, index) => {
+          if (current.id === important.id) {
+            importantParse.splice(index, 1);
+          }
+        });
+      });
+      localStorage.setItem('Important', JSON.stringify(importantParse));
+    }
+
+    const li = Array.from(ul.children).filter((li) => {
+      if (li.firstChild.innerText === currentListTitle.innerText) {
+        return li;
+      }
+    });
+
+    ul.removeChild(li[0]);
+
+    customListArray.forEach((list, index) => {
+      if (list.name === currentListTitle.innerText) {
+        customListArray.splice(index, 1);
+        return;
+      }
+    });
+    localStorage.removeItem(currentListTitle.innerText);
+
+    saveItem(customListArray);
+    renderInit(contentList);
+
+    itemArray = [];
+    currentListTitle.innerText = 'Important';
+
+    JSON.parse(localStorage.getItem('Important')).forEach((item) => {
+      appendItem(item.value, item.id, contentList, item.heart, item.state);
+    });
+  } else {
+    // 리스트 초기화
+    if (currentListTitle.innerText === 'Important') {
+      const listParse = JSON.parse(localStorage.getItem('DEFAULT_LIST')).concat(
+        JSON.parse(localStorage.getItem('CUSTOM_LIST'))
+      );
+
+      itemArray.forEach((target) => {
+        listParse.forEach((list) => {
+          const parse = JSON.parse(localStorage.getItem(list.name));
+
+          parse.forEach((item) => {
+            if (target.id === item.id) {
+              item.heart = false;
+            }
+          });
+
+          localStorage.setItem(list.name, JSON.stringify(parse));
+        });
+      });
+
+      localStorage.setItem('Important', JSON.stringify([]));
+    }
+
+    itemArray = [];
+
+    saveItem(contentList);
+    renderInit(contentList);
+  }
+}
+
 // Run
 init();
