@@ -33,13 +33,15 @@ function loadList() {
   const customListValue = localStorage.getItem('CUSTOM_LIST');
   const renderInitList = [defaultList, customList, contentList];
 
-  if (document.querySelector('.content-info-title').innerText === 'Important') {
+  if (
+    document.querySelector('.content-info-title').textContent === 'Important'
+  ) {
     document.querySelector('.new-item-wrap').classList.add('hide');
   }
 
   if (
-    document.querySelector('.content-info-title').innerText === 'Important' ||
-    document.querySelector('.content-info-title').innerText === 'Tasks'
+    document.querySelector('.content-info-title').textContent === 'Important' ||
+    document.querySelector('.content-info-title').textContent === 'Tasks'
   ) {
     document.querySelector('.content-info-button.delete').classList.add('hide');
   }
@@ -169,7 +171,8 @@ function appendItem(value, id, target, heart = false, state = 'doing') {
 
   if (target === contentList) {
     // Item
-    const currentList = document.querySelector('.content-info-title').innerText;
+    const currentList = document.querySelector('.content-info-title')
+      .textContent;
     const task = document.createElement('span');
     const buttonWrap = document.createElement('div');
     const importantBtn = document.createElement('span');
@@ -193,9 +196,9 @@ function appendItem(value, id, target, heart = false, state = 'doing') {
       importantBtn.classList.remove('clicked');
     }
 
-    importantBtn.innerHTML = '🤍';
-    task.innerHTML = value;
-    deleteBtn.innerHTML = '❎';
+    importantBtn.textContent = '🤍';
+    task.textContent = value;
+    deleteBtn.textContent = '❎';
 
     buttonWrap.append(importantBtn);
     buttonWrap.append(deleteBtn);
@@ -221,11 +224,11 @@ function appendItem(value, id, target, heart = false, state = 'doing') {
     name.classList.add('item-name');
     count.classList.add('item-count');
 
-    name.innerHTML = value;
+    name.textContent = value;
     if (JSON.parse(localStorage.getItem(value)) === null) {
-      count.innerHTML = 0;
+      count.textContent = 0;
     } else {
-      count.innerHTML = JSON.parse(localStorage.getItem(value)).length;
+      count.textContent = JSON.parse(localStorage.getItem(value)).length;
     }
 
     li.append(name);
@@ -267,7 +270,7 @@ function deleteItem(e) {
 
   itemArray = cleanArray;
 
-  const listName = document.querySelector('.content-info-title').innerText;
+  const listName = document.querySelector('.content-info-title').textContent;
 
   if (listName === 'Important') {
     const listParse = JSON.parse(localStorage.getItem('DEFAULT_LIST')).concat(
@@ -304,7 +307,7 @@ function deleteItem(e) {
 function toggleItem(e) {
   e.stopPropagation();
 
-  const listName = document.querySelector('.content-info-title').innerText;
+  const listName = document.querySelector('.content-info-title').textContent;
 
   if (e.currentTarget.classList.contains('important-item')) {
     // 하트 클릭
@@ -409,17 +412,19 @@ function updateCount() {
   ).concat(Array.from(document.querySelectorAll('.nav__custom-list li')));
 
   li.forEach((element) => {
-    const name = element.firstChild.innerText;
+    const name = element.firstChild.textContent;
 
-    element.lastChild.innerText = JSON.parse(localStorage.getItem(name)).length;
+    element.lastChild.textContent = JSON.parse(
+      localStorage.getItem(name)
+    ).length;
   });
 }
 
 function changeList(e) {
-  const listName = e.currentTarget.firstChild.innerText;
+  const listName = e.currentTarget.firstChild.textContent;
   const listTitle = document.querySelector('.content-info-title');
 
-  if (listTitle.innerText === listName) {
+  if (listTitle.textContent === listName) {
     if (sideBar.classList.contains('clicked')) {
       sideBar.classList.remove('clicked');
     }
@@ -428,20 +433,22 @@ function changeList(e) {
     return;
   }
 
-  listTitle.innerHTML = listName;
+  listTitle.textContent = listName;
 
   renderInit(contentList);
   itemArray = [];
 
-  if (document.querySelector('.content-info-title').innerText === 'Important') {
+  if (
+    document.querySelector('.content-info-title').textContent === 'Important'
+  ) {
     document.querySelector('.new-item-wrap').classList.add('hide');
   } else {
     document.querySelector('.new-item-wrap').classList.remove('hide');
   }
 
   if (
-    document.querySelector('.content-info-title').innerText === 'Important' ||
-    document.querySelector('.content-info-title').innerText === 'Tasks'
+    document.querySelector('.content-info-title').textContent === 'Important' ||
+    document.querySelector('.content-info-title').textContent === 'Tasks'
   ) {
     document.querySelector('.content-info-button.delete').classList.add('hide');
   } else {
@@ -466,7 +473,8 @@ function changeList(e) {
 
 function saveItem(target) {
   if (target === contentList) {
-    const currentList = document.querySelector('.content-info-title').innerText;
+    const currentList = document.querySelector('.content-info-title')
+      .textContent;
 
     localStorage.setItem(currentList, JSON.stringify(itemArray));
   }
@@ -490,10 +498,10 @@ function saveItem(target) {
 function createModal(e) {
   const body = document.querySelector('body');
   const modal = document.querySelector('.modal');
-  const type = e.target.innerText;
+  const type = e.target.textContent;
 
   if (modal) {
-    const text = modal.firstChild.innerText;
+    const text = modal.firstChild.textContent;
     if (
       // 이미 띄워진 팝업창과 같을 경우
       (type === 'DELETE' && text.indexOf('제거') !== -1) ||
@@ -516,13 +524,13 @@ function createModal(e) {
   yesBtn.classList.add('modal-button', 'yes');
   noBtn.classList.add('modal-button', 'no');
 
-  content.innerHTML = `${
+  content.textContent = `${
     type === 'DELETE'
       ? '해당 리스트를 제거하시겠습니까?'
       : '현재 아이템들을 초기화하시겠습니까?'
   }`;
-  yesBtn.innerHTML = 'YES';
-  noBtn.innerHTML = 'NO';
+  yesBtn.textContent = 'YES';
+  noBtn.textContent = 'NO';
 
   container.append(content);
   container.append(buttonWrap);
@@ -581,7 +589,7 @@ function getListOption(type) {
     }
 
     const li = Array.from(ul.children).filter((li) => {
-      if (li.firstChild.innerText === currentListTitle.innerText) {
+      if (li.firstChild.textContent === currentListTitle.textContent) {
         return li;
       }
     });
@@ -589,25 +597,25 @@ function getListOption(type) {
     ul.removeChild(li[0]);
 
     customListArray.forEach((list, index) => {
-      if (list.name === currentListTitle.innerText) {
+      if (list.name === currentListTitle.textContent) {
         customListArray.splice(index, 1);
         return;
       }
     });
-    localStorage.removeItem(currentListTitle.innerText);
+    localStorage.removeItem(currentListTitle.textContent);
 
     saveItem(customListArray);
     renderInit(contentList);
 
     itemArray = [];
-    currentListTitle.innerText = 'Important';
+    currentListTitle.textContent = 'Important';
 
     JSON.parse(localStorage.getItem('Important')).forEach((item) => {
       appendItem(item.value, item.id, contentList, item.heart, item.state);
     });
   } else {
     // 리스트 초기화
-    if (currentListTitle.innerText === 'Important') {
+    if (currentListTitle.textContent === 'Important') {
       const listParse = JSON.parse(localStorage.getItem('DEFAULT_LIST')).concat(
         JSON.parse(localStorage.getItem('CUSTOM_LIST'))
       );
