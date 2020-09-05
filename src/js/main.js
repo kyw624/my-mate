@@ -32,16 +32,19 @@ function loadList() {
   const defaultListValue = localStorage.getItem('DEFAULT_LIST');
   const customListValue = localStorage.getItem('CUSTOM_LIST');
   const renderInitList = [defaultList, customList, contentList];
+  const currentListName = document.querySelector('.content-info-title');
 
-  if (
-    document.querySelector('.content-info-title').textContent === 'Important'
-  ) {
+  if (currentListName.textContent === '') {
+    currentListName.textContent = 'Important';
+  }
+
+  if (currentListName.textContent === 'Important') {
     document.querySelector('.new-item-wrap').classList.add('hide');
   }
 
   if (
-    document.querySelector('.content-info-title').textContent === 'Important' ||
-    document.querySelector('.content-info-title').textContent === 'Tasks'
+    currentListName.textContent === 'Important' ||
+    currentListName.textContent === 'Tasks'
   ) {
     document.querySelector('.content-info-button.delete').classList.add('hide');
   }
