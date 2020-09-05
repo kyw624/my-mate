@@ -615,6 +615,10 @@ function getListOption(type) {
     });
   } else {
     // 리스트 초기화
+    if (itemArray.length === 0) {
+      return;
+    }
+
     if (currentListTitle.textContent === 'Important') {
       const listParse = JSON.parse(localStorage.getItem('DEFAULT_LIST')).concat(
         JSON.parse(localStorage.getItem('CUSTOM_LIST'))
