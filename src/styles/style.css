@@ -85,12 +85,12 @@ body {
   display: none;
 }
 
-.header__menu-icon {
+.header__menu-label {
   cursor: pointer;
   height: 8rem;
 }
 
-.header__hamburger {
+.header__menu-icon {
   position: relative;
   display: block;
   width: 2rem;
@@ -100,7 +100,7 @@ body {
   transition: background-color 0.2s ease-out;
 }
 
-.header__hamburger::before, .header__hamburger::after {
+.header__menu-icon::before, .header__menu-icon::after {
   background-color: white;
   content: '';
   display: block;
@@ -111,25 +111,25 @@ body {
   transition: all 0.2s ease-out;
 }
 
-.header__hamburger::before {
+.header__menu-icon::before {
   top: -0.7rem;
 }
 
-.header__hamburger::after {
+.header__menu-icon::after {
   top: 0.7rem;
 }
 
-.header__menu-toggle:checked ~ .header__menu-icon > .header__hamburger {
+.header__menu-toggle:checked ~ .header__menu-label > .header__menu-icon {
   background: transparent;
 }
 
-.header__menu-toggle:checked ~ .header__menu-icon > .header__hamburger::before {
+.header__menu-toggle:checked ~ .header__menu-label > .header__menu-icon::before {
   -webkit-transform: rotate(45deg);
           transform: rotate(45deg);
   top: 0;
 }
 
-.header__menu-toggle:checked ~ .header__menu-icon > .header__hamburger::after {
+.header__menu-toggle:checked ~ .header__menu-label > .header__menu-icon::after {
   -webkit-transform: rotate(-45deg);
           transform: rotate(-45deg);
   top: 0;
@@ -212,7 +212,7 @@ body {
   border-bottom: 2px solid #004a75;
 }
 
-.side-bar .profile-image {
+.side-bar .profile__image {
   margin-right: 10px;
 }
 
@@ -222,7 +222,6 @@ body {
   left: 0;
   width: 100%;
   border-top: 1px solid #004a75;
-  background-color: white;
   font-weight: 600;
 }
 
@@ -247,11 +246,11 @@ body {
 
 .side-bar .new-list-wrap .new-list-form .new-list-input {
   width: 0;
-  -webkit-animation: appearInputBox 0.4s forwards;
-          animation: appearInputBox 0.4s forwards;
+  -webkit-animation: appearInputBox 0.3s forwards;
+          animation: appearInputBox 0.3s forwards;
   outline: 1px solid white;
   text-align: center;
-  color: #e8e8e8;
+  color: #004a75;
   font-size: 1.8rem;
   font-weight: 600;
   padding: 0.9rem 0;
@@ -333,12 +332,25 @@ body {
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
+  font-size: 1.6rem;
   /* Small Devices, Tablets : 768px ~ */
   /* Medium Devices, Desktops : 992px ~ */
 }
 
+.content .item-wrap {
+  width: 100%;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  padding: 1rem 1rem;
+}
+
 .content .content-box {
-  background-color: whitesmoke;
+  background-color: #f5f5f5;
   border-radius: 1rem;
   margin: 1rem;
   padding: 1rem;
@@ -362,14 +374,14 @@ body {
 
 .content .content-wrap .new-item-wrap {
   position: relative;
-  background-color: white;
+  border-bottom: 1px solid #004a75;
+  font-size: 1.8rem;
+  font-weight: 600;
 }
 
 .content .content-wrap .new-item-wrap .new-item-button {
   cursor: pointer;
-  color: blue;
-  border-bottom: 1px solid gray;
-  padding: 3% 6%;
+  color: #004a75;
 }
 
 .content .content-wrap .new-item-wrap .new-item-button:nth-child() {
@@ -385,10 +397,15 @@ body {
 
 .content .content-wrap .new-item-wrap .new-item-form .new-item-input {
   width: 0;
-  -webkit-animation: appearInputBox 0.4s forwards;
-          animation: appearInputBox 0.4s forwards;
+  -webkit-animation: appearInputBox 0.3s forwards;
+          animation: appearInputBox 0.3s forwards;
   text-align: center;
   padding: 3% 0;
+  outline: 1px solid white;
+  color: #004a75;
+  font-size: 1.8rem;
+  font-weight: 600;
+  padding: 0.9rem 0;
 }
 
 .content .content-wrap .new-item-wrap.hide {
@@ -406,26 +423,30 @@ body {
   margin-bottom: 0;
 }
 
-.content .content-info-wrap {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
-  -webkit-box-pack: start;
-      -ms-flex-pack: start;
-          justify-content: flex-start;
+.content .content-info-title {
+  font-size: 1.8rem;
+  font-weight: 600;
+  font-family: 'kufam', 'Noto Sans KR';
+  color: #004a75;
+  margin-bottom: 1rem;
 }
 
-.content .content-info-title {
-  font-weight: 500;
+.content .content-info-date {
+  font-size: 1.4rem;
+  opacity: 0.6;
+  font-style: italic;
 }
 
 .content .content-info .content-info-button-wrap {
   -ms-flex-item-align: end;
       align-self: flex-end;
+}
+
+.content .content-info .content-info-button-wrap .content-info-button {
+  background-color: #007ec7;
+  color: white;
+  border-radius: 1rem;
+  padding: 0.5rem 1rem;
 }
 
 .content .content-info .content-info-button-wrap .delete.hide {
@@ -444,18 +465,6 @@ body {
       -ms-flex-align: center;
           align-items: center;
   text-align: center;
-}
-
-.content-list .content-item-wrap {
-  padding: 3% 6%;
-  width: 100%;
-  border-bottom: 1px solid gray;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
 }
 
 .content-list .content-item-wrap .content-item.todo {
@@ -480,7 +489,7 @@ body {
 
 .content-list .content-item-wrap .content-item.button-wrap .important-item.clicked {
   color: transparent;
-  text-shadow: 0 0 0 #2c2cbe;
+  text-shadow: 0 0 0 #004a75;
 }
 
 @media only screen and (min-width: 992px) {
@@ -490,7 +499,7 @@ body {
 }
 
 .modal {
-  border: 2px solid gray;
+  border: 0.2rem solid gray;
   border-radius: 10px;
   background-color: lightgray;
   position: absolute;
@@ -513,7 +522,7 @@ body {
   height: 30%;
   z-index: 10;
   text-align: center;
-  font-size: 1.2rem;
+  font-size: 1.8rem;
   /* Small Devices, Tablets : 768px ~ */
   /* Medium Devices, Desktops : 992px ~ */
 }
@@ -537,7 +546,7 @@ body {
   border: 1px solid gray;
   margin: 0;
   padding: 5% 5%;
-  width: 100px;
+  width: 10rem;
   border-radius: 10px;
   background-color: #fff;
 }
@@ -572,7 +581,7 @@ body {
   }
   to {
     width: 100%;
-    background-color: #a3a3a3;
+    background-color: lightgray;
   }
 }
 
@@ -583,14 +592,14 @@ body {
   }
   to {
     width: 100%;
-    background-color: #a3a3a3;
+    background-color: lightgray;
   }
 }
 
 @-webkit-keyframes disAppearInputBox {
   from {
     width: 100%;
-    background-color: #a3a3a3;
+    background-color: lightgray;
   }
   to {
     width: 0;
@@ -601,7 +610,7 @@ body {
 @keyframes disAppearInputBox {
   from {
     width: 100%;
-    background-color: #a3a3a3;
+    background-color: lightgray;
   }
   to {
     width: 0;

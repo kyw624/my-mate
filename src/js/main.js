@@ -181,7 +181,7 @@ function appendItem(value, id, target, heart = false, state = 'doing') {
     const importantBtn = document.createElement('span');
     const deleteBtn = document.createElement('span');
 
-    li.classList.add('content-item-wrap');
+    li.classList.add('content-item-wrap', 'item-wrap');
     task.classList.add('content-item', 'todo');
     buttonWrap.classList.add('content-item', 'button-wrap');
     importantBtn.classList.add('content-item', 'important-item');
@@ -201,7 +201,7 @@ function appendItem(value, id, target, heart = false, state = 'doing') {
 
     importantBtn.textContent = '🤍';
     task.textContent = value;
-    deleteBtn.textContent = '❎';
+    deleteBtn.textContent = '❌';
 
     buttonWrap.append(importantBtn);
     buttonWrap.append(deleteBtn);
