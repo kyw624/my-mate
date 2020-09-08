@@ -645,9 +645,8 @@ function getListOption(type) {
           localStorage.setItem(list.name, JSON.stringify(parse));
         });
       });
-
-      localStorage.setItem('Important', JSON.stringify([]));
     }
+    localStorage.setItem('Important', JSON.stringify([]));
 
     itemArray = [];
 
