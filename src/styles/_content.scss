@@ -1,0 +1,274 @@
+.main {
+  display: block;
+  background-color: $bgColor;
+  flex-grow: 1;
+  overflow: hidden;
+
+  .list-wrap {
+    cursor: pointer;
+  }
+
+  .item-wrap {
+    padding: 1rem 4rem;
+    justify-content: space-between;
+    align-items: center;
+    @include flexContainer(row);
+  }
+
+  /* Small Devices, Tablets : 768px ~ */
+  @media only screen and (min-width: 768px) {
+  }
+
+  /* Medium Devices, Desktops : 992px ~ */
+  @media only screen and (min-width: 992px) {
+    display: flex;
+  }
+}
+
+.side-bar {
+  position: absolute;
+  width: 100%;
+  top: 6rem;
+  bottom: 0;
+  right: -100%;
+  background-color: $bgColor;
+  opacity: 0;
+  z-index: 2;
+  transition: opacity 0.8s, right 0.4s;
+  justify-content: space-between;
+  align-items: center;
+  @include flexContainer(column);
+
+  &.clicked {
+    opacity: 1;
+    right: 0;
+  }
+
+  .profile,
+  .new-list-wrap,
+  .new-list-input {
+    font: 600 1.8rem 'Kufam', 'Noto Sans KR';
+  }
+
+  .profile {
+    width: 100%;
+    height: 4rem;
+    justify-content: center;
+    align-items: center;
+    @include flexContainer(row);
+
+    &__image {
+      margin-right: 1rem;
+    }
+  }
+
+  .nav,
+  .new-list-wrap {
+    width: 100%;
+  }
+
+  .nav {
+    font-size: 1.6rem;
+    overflow: auto;
+    height: 100%;
+
+    &__default-list,
+    &__custom-list {
+      border-top: 0.2rem solid $subColor;
+    }
+  }
+
+  .new-list-wrap {
+    position: relative;
+    bottom: 0;
+    left: 0;
+    border-top: 0.1rem solid $subColor;
+    color: $subColor;
+    cursor: pointer;
+
+    .new-list-form {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      text-align: center;
+    }
+
+    .new-list-input {
+      text-align: center;
+      padding: 1rem 0;
+      color: $subColor;
+      outline: 0.1rem solid white;
+      animation: appearInputBox 0.3s forwards;
+    }
+  }
+
+  /* Small Devices, Tablets : 768px ~ */
+  @media only screen and (min-width: 768px) {
+    width: 88.8%;
+  }
+
+  /* Medium Devices, Desktops : 992px ~ */
+  @media only screen and (min-width: 992px) {
+    position: unset;
+    width: 33.3%;
+    left: 0;
+    opacity: 1;
+  }
+}
+
+.content {
+  height: 100%;
+  font-size: 1.6rem;
+  @include flexContainer(column);
+
+  .item-wrap {
+    padding: 1rem 1rem;
+  }
+
+  &-box {
+    background-color: $boxColor;
+    border-radius: 1rem;
+    margin: 1rem;
+    padding: 1.6rem;
+    box-shadow: 0.25rem 0.25rem 0.25rem 0.1rem rgba(0, 0, 0, 0.05),
+      -0.25rem 0.25rem 0.25rem 0.1rem rgba(0, 0, 0, 0.05),
+      0.25rem -0.25rem 0.25rem 0.1rem rgba(0, 0, 0, 0.05),
+      -0.25rem -0.25rem 0.25rem 0.1rem rgba(0, 0, 0, 0.05);
+  }
+
+  &__info-title,
+  .new-item-wrap,
+  .new-item-input {
+    font-weight: 600;
+    font-size: 1.8rem;
+    color: $subColor;
+  }
+
+  &__info {
+    height: 10rem;
+    margin-bottom: 0;
+    justify-content: space-between;
+    @include flexContainer(row);
+  }
+
+  &__info-wrap {
+  }
+
+  &__info-title {
+    margin-bottom: 1rem;
+  }
+
+  &__info-date {
+    font-style: italic;
+    font-size: 1.4rem;
+    opacity: 0.6;
+  }
+
+  &__info-button-wrap {
+    align-self: flex-end;
+  }
+
+  &__info-button {
+    background-color: $primaryColor;
+    color: white;
+    border-radius: 1rem;
+    padding: 0.5rem 1rem;
+
+    &.delete.hide {
+      display: none;
+    }
+
+    &.reset {
+    }
+  }
+
+  &-wrap {
+    height: 100%;
+    overflow: auto;
+  }
+
+  .new-item-wrap {
+    position: relative;
+    border-bottom: 0.1rem solid $subColor;
+    cursor: pointer;
+
+    &.hide {
+      display: none;
+    }
+  }
+
+  .new-item-form {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    text-align: center;
+  }
+
+  .new-item-input {
+    text-align: center;
+    padding: 1rem 0;
+    color: $subColor;
+    outline: 0.1rem solid white;
+    animation: appearInputBox 0.3s forwards;
+  }
+
+  &-list {
+    text-align: center;
+    justify-content: center;
+    @include flexContainer(column);
+
+    .item-wrap {
+      border-bottom: 1px solid lightgray;
+    }
+
+    .todo.done {
+      text-decoration: line-through;
+      opacity: 0.6;
+    }
+  }
+
+  .button-wrap {
+    @include flexContainer(row);
+  }
+
+  .button--important {
+    margin-right: 0.5rem;
+
+    &.clicked {
+      color: transparent;
+      text-shadow: 0 0 0 $subColor;
+    }
+  }
+
+  /* Small Devices, Tablets : 768px ~ */
+  @media only screen and (min-width: 768px) {
+  }
+
+  /* Medium Devices, Desktops : 992px ~ */
+  @media only screen and (min-width: 992px) {
+    width: 66.6%;
+  }
+}
+
+@keyframes appearInputBox {
+  from {
+    width: 0;
+    background-color: white;
+  }
+  to {
+    width: 100%;
+    background-color: lightgray;
+  }
+}
+
+@keyframes disAppearInputBox {
+  from {
+    width: 100%;
+    background-color: lightgray;
+  }
+  to {
+    width: 0;
+    background-color: white;
+  }
+}
