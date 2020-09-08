@@ -1,0 +1,67 @@
+.modal {
+  border: 0.2rem solid gray;
+  border-radius: 10px;
+  background-color: lightgray;
+  position: absolute;
+  top: 30%;
+  justify-self: center;
+  align-self: center;
+  width: 80%;
+  height: 30%;
+  z-index: 5;
+  text-align: center;
+  font-size: 1.8rem;
+  padding: 5%;
+  justify-content: space-around;
+  align-items: center;
+  @include flexContainer(column);
+
+  &-content {
+    line-height: 1.6;
+    font-weight: bold;
+  }
+
+  &-button-wrap {
+    justify-content: space-between;
+    @include flexContainer(row);
+  }
+
+  .modal-button {
+    border: 0.1rem solid gray;
+    border-radius: 1rem;
+    padding: 1rem;
+    width: 10rem;
+    background-color: #fff;
+
+    &:hover {
+      font-weight: bold;
+      color: white;
+      border: 0.1rem solid white;
+    }
+  }
+
+  .yes {
+    margin-right: 1rem;
+    color: lightseagreen;
+
+    &:hover {
+      background-color: lightseagreen;
+    }
+  }
+
+  .no {
+    color: salmon;
+
+    &:hover {
+      background-color: salmon;
+    }
+  }
+
+  /* Small Devices, Tablets : 768px ~ */
+  @media only screen and (min-width: 768px) {
+  }
+
+  /* Medium Devices, Desktops : 992px ~ */
+  @media only screen and (min-width: 992px) {
+  }
+}
