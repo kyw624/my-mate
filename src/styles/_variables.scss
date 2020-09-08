@@ -1,0 +1,9 @@
+$primaryColor: #007ec7;
+$subColor: #004a75;
+$boxColor: #f5f5f5;
+$bgColor: #e8e8e8;
+
+@mixin flexContainer($direction) {
+  display: flex;
+  flex-direction: $direction;
+}
