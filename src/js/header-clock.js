@@ -12,7 +12,7 @@ function paintClock() {
 }
 
 function paintDate() {
-  const dateContainer = document.querySelector('.content-info-date');
+  const dateContainer = document.querySelector('.content__info-date');
   const currentDate = getDate('date');
 
   dateContainer.textContent = currentDate;

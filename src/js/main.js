@@ -8,8 +8,8 @@ const newListButton = document.querySelector('.new-list-button');
 const newItemButton = document.querySelector('.new-item-button');
 const menuBar = document.querySelector('#hamburger');
 const sideBar = document.querySelector('.side-bar');
-const deleteButton = document.querySelector('.content-info-button.delete');
-const resetButton = document.querySelector('.content-info-button.reset');
+const deleteButton = document.querySelector('.content__info-button.delete');
+const resetButton = document.querySelector('.content__info-button.reset');
 
 function init() {
   loadList();
@@ -32,7 +32,7 @@ function loadList() {
   const defaultListValue = localStorage.getItem('DEFAULT_LIST');
   const customListValue = localStorage.getItem('CUSTOM_LIST');
   const renderInitList = [defaultList, customList, contentList];
-  const currentListName = document.querySelector('.content-info-title');
+  const currentListName = document.querySelector('.content__info-title');
 
   if (currentListName.textContent === '') {
     currentListName.textContent = 'Important';
@@ -46,7 +46,9 @@ function loadList() {
     currentListName.textContent === 'Important' ||
     currentListName.textContent === 'Tasks'
   ) {
-    document.querySelector('.content-info-button.delete').classList.add('hide');
+    document
+      .querySelector('.content__info-button.delete')
+      .classList.add('hide');
   }
 
   renderInitList.forEach((item) => renderInit(item));
@@ -174,7 +176,7 @@ function appendItem(value, id, target, heart = false, state = 'doing') {
 
   if (target === contentList) {
     // Item
-    const currentList = document.querySelector('.content-info-title')
+    const currentList = document.querySelector('.content__info-title')
       .textContent;
     const task = document.createElement('span');
     const buttonWrap = document.createElement('div');
@@ -183,9 +185,9 @@ function appendItem(value, id, target, heart = false, state = 'doing') {
 
     li.classList.add('content-item-wrap', 'item-wrap');
     task.classList.add('content-item', 'todo');
-    buttonWrap.classList.add('content-item', 'button-wrap');
-    importantBtn.classList.add('content-item', 'important-item');
-    deleteBtn.classList.add('content-item', 'delete-item');
+    buttonWrap.classList.add('button-wrap');
+    importantBtn.classList.add('button--important');
+    deleteBtn.classList.add('button--delete');
 
     if (state === 'doing') {
       task.classList.remove('done');
@@ -273,7 +275,7 @@ function deleteItem(e) {
 
   itemArray = cleanArray;
 
-  const listName = document.querySelector('.content-info-title').textContent;
+  const listName = document.querySelector('.content__info-title').textContent;
 
   if (listName === 'Important') {
     const listParse = JSON.parse(localStorage.getItem('DEFAULT_LIST')).concat(
@@ -310,9 +312,9 @@ function deleteItem(e) {
 function toggleItem(e) {
   e.stopPropagation();
 
-  const listName = document.querySelector('.content-info-title').textContent;
+  const listName = document.querySelector('.content__info-title').textContent;
 
-  if (e.currentTarget.classList.contains('important-item')) {
+  if (e.currentTarget.classList.contains('button--important')) {
     // 하트 클릭
     const importantBtn = e.currentTarget;
     const li = importantBtn.parentElement.parentElement;
@@ -425,7 +427,7 @@ function updateCount() {
 
 function changeList(e) {
   const listName = e.currentTarget.firstChild.textContent;
-  const listTitle = document.querySelector('.content-info-title');
+  const listTitle = document.querySelector('.content__info-title');
 
   if (listTitle.textContent === listName) {
     if (sideBar.classList.contains('clicked')) {
@@ -442,7 +444,7 @@ function changeList(e) {
   itemArray = [];
 
   if (
-    document.querySelector('.content-info-title').textContent === 'Important'
+    document.querySelector('.content__info-title').textContent === 'Important'
   ) {
     document.querySelector('.new-item-wrap').classList.add('hide');
   } else {
@@ -450,13 +452,16 @@ function changeList(e) {
   }
 
   if (
-    document.querySelector('.content-info-title').textContent === 'Important' ||
-    document.querySelector('.content-info-title').textContent === 'Tasks'
+    document.querySelector('.content__info-title').textContent ===
+      'Important' ||
+    document.querySelector('.content__info-title').textContent === 'Tasks'
   ) {
-    document.querySelector('.content-info-button.delete').classList.add('hide');
+    document
+      .querySelector('.content__info-button.delete')
+      .classList.add('hide');
   } else {
     document
-      .querySelector('.content-info-button.delete')
+      .querySelector('.content__info-button.delete')
       .classList.remove('hide');
   }
 
@@ -476,7 +481,7 @@ function changeList(e) {
 
 function saveItem(target) {
   if (target === contentList) {
-    const currentList = document.querySelector('.content-info-title')
+    const currentList = document.querySelector('.content__info-title')
       .textContent;
 
     localStorage.setItem(currentList, JSON.stringify(itemArray));
@@ -573,7 +578,7 @@ function removeForm(form) {
 }
 
 function getListOption(type) {
-  const currentListTitle = document.querySelector('.content-info-title');
+  const currentListTitle = document.querySelector('.content__info-title');
 
   if (type === 'DELETE') {
     // 리스트 제거
