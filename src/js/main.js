@@ -491,9 +491,10 @@ function saveItem(target) {
     localStorage.setItem('DEFAULT_LIST', JSON.stringify(defaultListArray));
   }
 
+  localStorage.setItem('CUSTOM_LIST', JSON.stringify(customListArray));
+
   if (customListArray.length !== 0) {
     const currentList = customListArray[customListArray.length - 1].name;
-    localStorage.setItem('CUSTOM_LIST', JSON.stringify(customListArray));
 
     if (localStorage.getItem(currentList) === null) {
       localStorage.setItem(currentList, JSON.stringify([]));
@@ -610,6 +611,7 @@ function getListOption(type) {
         return;
       }
     });
+
     localStorage.removeItem(currentListTitle.textContent);
 
     saveItem(customListArray);
