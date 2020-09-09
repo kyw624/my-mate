@@ -713,8 +713,6 @@
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
-  /* Small Devices, Tablets : 768px ~ */
-  /* Medium Devices, Desktops : 992px ~ */
 }
 
 .modal-content {
@@ -764,6 +762,60 @@
 
 .modal .no:hover {
   background-color: salmon;
+}
+
+/* Extra Small Devices, Phones : 480px ~ */
+@media only screen and (min-width: 480px) {
+  .modal {
+    font-size: 2.4rem;
+  }
+  .modal .modal-button.yes {
+    margin-right: 2rem;
+  }
+}
+
+/* Small Devices, Tablets : 768px ~ */
+@media only screen and (min-width: 768px) {
+  .modal {
+    font-size: 3rem;
+  }
+  .modal .modal-button {
+    width: 15rem;
+    padding: 2rem;
+  }
+  .modal .modal-button.yes {
+    margin-right: 2rem;
+  }
+}
+
+/* Medium Devices, Desktops : 992px ~ */
+@media only screen and (min-width: 992px) {
+  .modal {
+    font-size: 2.4rem;
+    width: 50%;
+    height: 40%;
+  }
+  .modal .modal-button {
+    padding: 1.5rem;
+  }
+  .modal .modal-button.yes {
+    margin-right: 2rem;
+  }
+}
+
+/* Large Devices, Wide Screens : 1200px ~ */
+@media only screen and (min-width: 1200px) {
+  .modal {
+    font-size: 3.6rem;
+    width: 50%;
+    padding: 3% 5%;
+  }
+  .modal .modal-button {
+    width: 20rem;
+  }
+  .modal .modal-button.yes {
+    margin-right: 5rem;
+  }
 }
 
 * {
