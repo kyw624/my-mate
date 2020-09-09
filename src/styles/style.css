@@ -156,10 +156,8 @@
 .main {
   display: block;
   background-color: #e8e8e8;
-  -webkit-box-flex: 1;
-      -ms-flex-positive: 1;
-          flex-grow: 1;
   overflow: hidden;
+  height: 100%;
 }
 
 .main .list-wrap {

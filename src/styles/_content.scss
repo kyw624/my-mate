@@ -1,8 +1,8 @@
 .main {
   display: block;
   background-color: $bgColor;
-  flex-grow: 1;
   overflow: hidden;
+  height: 100%;
 
   .list-wrap {
     cursor: pointer;
