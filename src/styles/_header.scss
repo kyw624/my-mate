@@ -120,8 +120,13 @@
 
 /* Medium Devices, Desktops : 992px ~ */
 @media only screen and (min-width: 992px) {
-  .header__menu {
-    display: none;
+  .header {
+    height: 9rem;
+    font-size: 3.5rem;
+
+    .header__menu {
+      display: none;
+    }
   }
 }
 

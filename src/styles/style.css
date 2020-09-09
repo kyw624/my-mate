@@ -134,7 +134,11 @@
 
 /* Medium Devices, Desktops : 992px ~ */
 @media only screen and (min-width: 992px) {
-  .header__menu {
+  .header {
+    height: 9rem;
+    font-size: 3.5rem;
+  }
+  .header .header__menu {
     display: none;
   }
 }
@@ -156,8 +160,6 @@
       -ms-flex-positive: 1;
           flex-grow: 1;
   overflow: hidden;
-  /* Small Devices, Tablets : 768px ~ */
-  /* Medium Devices, Desktops : 992px ~ */
 }
 
 .main .list-wrap {
@@ -181,11 +183,40 @@
           flex-direction: row;
 }
 
+/* Extra Small Devices, Phones : 480px ~ */
+@media only screen and (min-width: 480px) {
+  .main .item-wrap {
+    font-size: 2rem;
+    padding: 1.5rem 6rem;
+  }
+}
+
+/* Small Devices, Tablets : 768px ~ */
+@media only screen and (min-width: 768px) {
+  .main .item-wrap {
+    font-size: 2.8rem;
+    padding: 2rem 8rem;
+  }
+}
+
+/* Medium Devices, Desktops : 992px ~ */
 @media only screen and (min-width: 992px) {
   .main {
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
+  }
+  .main .item-wrap {
+    font-size: 2.2rem;
+    padding: 1.5rem 4rem;
+  }
+}
+
+/* Large Devices, Wide Screens : 1200px ~ */
+@media only screen and (min-width: 1200px) {
+  .main .item-wrap {
+    font-size: 2.8rem;
+    padding: 2rem 5rem;
   }
 }
 
@@ -213,8 +244,6 @@
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
-  /* Small Devices, Tablets : 768px ~ */
-  /* Medium Devices, Desktops : 992px ~ */
 }
 
 .side-bar.clicked {
@@ -223,14 +252,14 @@
 }
 
 .side-bar .profile,
-.side-bar .new-list-wrap,
+.side-bar .new-list-button,
 .side-bar .new-list-input {
   font: 600 1.8rem 'Kufam', 'Noto Sans KR';
 }
 
 .side-bar .profile {
   width: 100%;
-  height: 4rem;
+  padding: 0.5rem 0;
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
@@ -279,30 +308,79 @@
   bottom: 0;
   left: 0;
   width: 100%;
+  height: 100%;
   text-align: center;
 }
 
 .side-bar .new-list-wrap .new-list-input {
   text-align: center;
-  padding: 1rem 0;
+  height: 100%;
   color: #004a75;
   outline: 0.1rem solid white;
   -webkit-animation: appearInputBox 0.3s forwards;
           animation: appearInputBox 0.3s forwards;
 }
 
-@media only screen and (min-width: 768px) {
+/* Extra Small Devices, Phones : 480px ~ */
+@media only screen and (min-width: 480px) {
   .side-bar {
-    width: 88.8%;
+    top: 8rem;
+  }
+  .side-bar .profile,
+  .side-bar .new-list-button,
+  .side-bar .new-list-input {
+    font-size: 2.4rem;
+  }
+  .side-bar .profile {
+    padding: 1rem 0;
   }
 }
 
+/* Small Devices, Tablets : 768px ~ */
+@media only screen and (min-width: 768px) {
+  .side-bar {
+    width: 88.8%;
+    top: 10rem;
+    border-left: 0.2rem solid #004a75;
+  }
+  .side-bar .profile,
+  .side-bar .new-list-button,
+  .side-bar .new-list-input {
+    font-size: 3rem;
+  }
+  .side-bar .profile {
+    padding: 1.5rem 0;
+  }
+}
+
+/* Medium Devices, Desktops : 992px ~ */
 @media only screen and (min-width: 992px) {
   .side-bar {
     position: unset;
+    border: none;
     width: 33.3%;
     left: 0;
     opacity: 1;
+  }
+  .side-bar .profile,
+  .side-bar .new-list-button,
+  .side-bar .new-list-input {
+    font-size: 2.4rem;
+  }
+  .side-bar .profile {
+    padding: 1rem 0;
+  }
+}
+
+/* Large Devices, Wide Screens : 1200px ~ */
+@media only screen and (min-width: 1200px) {
+  .side-bar .profile,
+  .side-bar .new-list-button,
+  .side-bar .new-list-input {
+    font-size: 3rem;
+  }
+  .side-bar .profile {
+    padding: 1.5rem 0;
   }
 }
 
@@ -316,8 +394,6 @@
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
-  /* Small Devices, Tablets : 768px ~ */
-  /* Medium Devices, Desktops : 992px ~ */
 }
 
 .content .item-wrap {
@@ -334,11 +410,15 @@
 }
 
 .content__info-title,
-.content .new-item-wrap,
+.content .new-item-button,
 .content .new-item-input {
   font-weight: 600;
   font-size: 1.8rem;
   color: #004a75;
+}
+
+.content__info-date, .content__info-button {
+  font-size: 1.4rem;
 }
 
 .content__info {
@@ -362,7 +442,6 @@
 
 .content__info-date {
   font-style: italic;
-  font-size: 1.4rem;
   opacity: 0.6;
 }
 
@@ -401,11 +480,13 @@
   position: absolute;
   top: 0;
   width: 100%;
+  height: 100%;
   text-align: center;
 }
 
 .content .new-item-input {
   text-align: center;
+  height: 100%;
   padding: 1rem 0;
   color: #004a75;
   outline: 0.1rem solid white;
@@ -455,9 +536,109 @@
   text-shadow: 0 0 0 #004a75;
 }
 
+/* Extra Small Devices, Phones : 480px ~ */
+@media only screen and (min-width: 480px) {
+  .content-box {
+    padding: 2rem;
+  }
+  .content__info-title,
+  .content .new-item-button,
+  .content .new-item-input {
+    font-size: 2.4rem;
+  }
+  .content__info-date, .content__info-button {
+    font-size: 1.8rem;
+  }
+  .content .content__info {
+    height: 30%;
+  }
+  .content .content__info-button {
+    padding: 1rem 1.5rem;
+    border-radius: 1.5rem;
+  }
+  .content .content__info .reset {
+    margin-left: 0.5rem;
+  }
+  .content .item-wrap {
+    padding: 1.5rem 2rem;
+  }
+}
+
+/* Small Devices, Tablets : 768px ~ */
+@media only screen and (min-width: 768px) {
+  .content-box {
+    padding: 3rem;
+  }
+  .content__info-title,
+  .content .new-item-button,
+  .content .new-item-input {
+    font-size: 3rem;
+  }
+  .content__info-date, .content__info-button {
+    font-size: 2.2rem;
+  }
+  .content .content__info-button {
+    padding: 1.5rem 2rem;
+    border-radius: 2rem;
+  }
+  .content .content__info-button.reset {
+    margin-left: 1rem;
+  }
+  .content .item-wrap {
+    padding: 1.5rem 2rem;
+  }
+}
+
+/* Medium Devices, Desktops : 992px ~ */
 @media only screen and (min-width: 992px) {
   .content {
     width: 66.6%;
+  }
+  .content-box {
+    padding: 2rem;
+  }
+  .content__info-title,
+  .content .new-item-button,
+  .content .new-item-input {
+    font-size: 2.4rem;
+  }
+  .content__info-date, .content__info-button {
+    font-size: 1.8rem;
+  }
+  .content .content__info {
+    height: 30%;
+  }
+  .content .content__info-button {
+    padding: 1rem 1.5rem;
+    border-radius: 1.5rem;
+  }
+  .content .item-wrap {
+    padding: 1.5rem 2rem;
+  }
+}
+
+/* Large Devices, Wide Screens : 1200px ~ */
+@media only screen and (min-width: 1200px) {
+  .content-box {
+    padding: 4rem;
+  }
+  .content__info-title,
+  .content .new-item-button,
+  .content .new-item-input {
+    font-size: 3.6rem;
+  }
+  .content__info-date, .content__info-button {
+    font-size: 2.6rem;
+  }
+  .content .content__info-button {
+    padding: 1.5rem 2rem;
+    border-radius: 2rem;
+  }
+  .content .content__info .reset {
+    margin-left: 1.5rem;
+  }
+  .content .item-wrap {
+    padding: 2rem 4rem;
   }
 }
 
