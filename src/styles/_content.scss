@@ -9,10 +9,18 @@
   }
 
   .item-wrap {
+    cursor: pointer;
     padding: 1rem 4rem;
+    transition: all 0.25s;
     justify-content: space-between;
     align-items: center;
     @include flexContainer(row);
+
+    &:hover {
+      opacity: 0.5;
+      color: white;
+      background: $primaryColor;
+    }
   }
 }
 
@@ -141,18 +149,7 @@
 /* Extra Small Devices, Phones : 480px ~ */
 @media only screen and (min-width: 480px) {
   .side-bar {
-    //   position: absolute;
-    // width: 100%;
     top: 8rem;
-    // bottom: 0;
-    // right: -100%;
-    // background-color: $bgColor;
-    // opacity: 0;
-    // z-index: 2;
-    // transition: opacity 0.8s, right 0.4s;
-    // justify-content: space-between;
-    // align-items: center;
-    // @include flexContainer(column);
 
     .profile,
     .new-list-button,
@@ -279,9 +276,14 @@
     color: white;
     border-radius: 1rem;
     padding: 0.5rem 1rem;
+    transition: transform 0.25s;
 
     &.delete.hide {
       display: none;
+    }
+
+    &:hover {
+      transform: scale(1.1);
     }
   }
 
@@ -368,6 +370,7 @@
       height: 30%;
 
       &-button {
+        cursor: pointer;
         padding: 1rem 1.5rem;
         border-radius: 1.5rem;
       }

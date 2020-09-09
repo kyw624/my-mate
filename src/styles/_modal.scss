@@ -27,16 +27,19 @@
   }
 
   .modal-button {
+    cursor: pointer;
     border: 0.1rem solid gray;
     border-radius: 1rem;
     padding: 1rem;
     width: 10rem;
     background-color: #fff;
+    transition: all 0.25s;
 
     &:hover {
       font-weight: bold;
       color: white;
       border: 0.1rem solid white;
+      transform: scale(1.1);
     }
   }
 
